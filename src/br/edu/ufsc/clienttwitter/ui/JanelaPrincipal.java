@@ -22,6 +22,7 @@ public class JanelaPrincipal extends JFrame {
 		this.setTitle("Twitter Client");
 		this.setBounds(0, 800, 250, 800);
 		this.setExtendedState(MAXIMIZED_VERT);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		painelLogin = new PainelLogin(twitterInterface);
 		final JFrame janela = this;
