@@ -8,6 +8,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 public class TwitterInterface {
 
@@ -17,9 +20,27 @@ public class TwitterInterface {
 		this.twitterManager = twitterManager;
 	}
 
-	public void login(String codigoDeAcesso) {
-		//TODO Implementar login
-	}
+	public void login(String codigo) {
+        //TODO Implementar login
+        AccessToken accessToken = null;
+        RequestToken requestToken;
+        try {
+            requestToken = twitterManager.getOAuthRequestToken();
+            while( accessToken == null){
+                 if(codigo.length() > 0){
+                       accessToken = twitterManager.getOAuthAccessToken(requestToken, codigo);
+                 } else{
+                       accessToken = twitterManager.getOAuthAccessToken();
+                   }
+            }
+        } catch (TwitterException e) {
+            if(401 == e.getStatusCode()){
+                 //"Unable to get the access token.
+                }else{
+                  e.printStackTrace();
+                }
+        }
+     }
 
 	public List<Tweet> getTweets(int numPagina) {
 		// TODO: Retornar a página numPagina de Tweets
@@ -39,7 +60,13 @@ public class TwitterInterface {
 	}
 	
 	public void Tweet(String tweet){
-		//TODO: Permitir que seja enviado um tweet do usuário
+		//TODO: Permitir que seja enviado um tweet do usurio
+		try {
+			twitterManager.updateStatus(tweet);
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void abrirPaginaDeAutorizacao() {
