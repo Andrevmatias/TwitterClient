@@ -15,11 +15,10 @@ import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 public class PainelLogin extends JPanel {
 
 	private TwitterInterface twitterInterface;
-	
-	private JTextField textUsuario;
-	private JTextField textSenha;
+	private JTextField textCodigo;
 	
 	private JButton botaoLogin;
+	private JButton btnGerarCodigo;
 
 	public PainelLogin(TwitterInterface twitterInterface) {
 		this.twitterInterface = twitterInterface;
@@ -30,13 +29,18 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
-		textUsuario = new JTextField(15);
-		textSenha = new JTextField(15);
+		textCodigo = new JTextField(15);
 		
-		this.add(new JLabel("Login"));
-		this.add(textUsuario);
-		this.add(new JLabel("Senha"));
-		this.add(textSenha);
+		btnGerarCodigo = new JButton("Permitir acesso à conta");
+		btnGerarCodigo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				twitterInterface.abrirPaginaDeAutorizacao();
+			}
+		});
+		
+		this.add(new JLabel("Código"));
+		this.add(textCodigo);
 		
 		botaoLogin = new JButton("Login");
 		botaoLogin.addActionListener(new ActionListener() {
@@ -44,7 +48,7 @@ public class PainelLogin extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					twitterInterface
-						.login(textUsuario.getText(), textSenha.getText());
+						.login(textCodigo.getText());
 					((JComponent)e.getSource()).getParent().setVisible(false);
 				}
 				catch (RuntimeException ex){

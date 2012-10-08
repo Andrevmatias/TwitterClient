@@ -20,7 +20,8 @@ public class JanelaPrincipal extends JFrame {
 		this.twitterInterface = twitterInterface;
 		
 		this.setTitle("Twitter Client");
-		this.setBounds(0, 800, 250, 800);
+		this.setSize(250, 800);
+		this.setLocationRelativeTo(null);
 		this.setExtendedState(MAXIMIZED_VERT);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

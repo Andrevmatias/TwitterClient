@@ -17,7 +17,7 @@ public class TwitterInterface {
 		this.twitterManager = twitterManager;
 	}
 
-	public void login(String login, String senha) {
+	public void login(String codigoDeAcesso) {
 		//TODO Implementar login
 	}
 
@@ -37,5 +37,12 @@ public class TwitterInterface {
 		
 		return tweets;
 	}
+	
+	public void Tweet(String tweet){
+		//TODO: Permitir que seja enviado um tweet do usuário
+	}
 
+	public void abrirPaginaDeAutorizacao() {
+		// TODO: Abre a página para gerar código de autorização
+	}
 }
