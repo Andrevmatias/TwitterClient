@@ -7,7 +7,11 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 
 public class TwitterInterface {
 
@@ -23,21 +27,36 @@ public class TwitterInterface {
 
 	public List<Tweet> getTweets(int numPagina) {
 		// TODO: Retornar a página numPagina de Tweets
-		Tweet tweet = new Tweet();
-		tweet.setMensagem("Teste");
+		List<Tweet> tweetsModel = new ArrayList<Tweet>();
 		try {
-			tweet.setFoto(new ImageIcon(new URL("http://www.foundhistory.org/wp-content/themes/cutline_mod/images/Twitter_32x32.png")));
-		} catch (MalformedURLException e) {
+			Paging paging = new Paging(numPagina, 20);
+			ResponseList<Status> tweets;
+			tweets = twitterManager.getUserTimeline(paging);
+			for(Status tweet : tweets){
+				Tweet tweetModel = this.convertTweet(tweet);
+				tweetsModel.add(tweetModel);
+			}
+		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
 		
-		List<Tweet> tweets = new ArrayList<Tweet>();
-		for(int i = 0; i < 40; i++)
-			tweets.add(tweet);
-		
-		return tweets;
+		return tweetsModel;
 	}
 	
+	private Tweet convertTweet(Status status) {
+		Tweet tweet = new Tweet();
+		tweet.setAutor(this.convertAutor(status.getSource()));
+		tweet.setMensagem(status.getText());
+		
+		return tweet;
+	}
+
+	private Autor convertAutor(String source) {
+		Autor autor = new Autor();
+		autor.setNome(source);
+		return autor;
+	}
+
 	public void Tweet(String tweet){
 		//TODO: Permitir que seja enviado um tweet do usuário
 	}
