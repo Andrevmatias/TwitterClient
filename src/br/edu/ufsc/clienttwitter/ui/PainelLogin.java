@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
+import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class PainelLogin extends JPanel {
 
@@ -19,9 +20,12 @@ public class PainelLogin extends JPanel {
 	
 	private JButton botaoLogin;
 	private JButton btnGerarCodigo;
+	private JanelaPrincipal janelaPrincipal;
 
-	public PainelLogin(TwitterInterface twitterInterface) {
+	public PainelLogin(JanelaPrincipal janelaPrincipal, 
+			TwitterInterface twitterInterface) {
 		this.twitterInterface = twitterInterface;
+		this.janelaPrincipal = janelaPrincipal;
 		
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
@@ -49,7 +53,7 @@ public class PainelLogin extends JPanel {
 				try{
 					twitterInterface
 						.login(textCodigo.getText());
-					((JComponent)e.getSource()).getParent().setVisible(false);
+					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (RuntimeException ex){
 					//TODO: Tratar erro de login
