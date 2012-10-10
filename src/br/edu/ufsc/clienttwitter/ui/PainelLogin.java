@@ -35,15 +35,17 @@ public class PainelLogin extends JPanel {
 	private void initComponents() {
 		textCodigo = new JTextField(15);
 		
-		btnGerarCodigo = new JButton("Permitir acesso Ã  conta");
+		btnGerarCodigo = new JButton("Permitir acesso à conta");
 		btnGerarCodigo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				twitterInterface.abrirPaginaDeAutorizacao();
 			}
 		});
+		this.add(btnGerarCodigo);
 		
-		this.add(new JLabel("CÃ³digo"));
+		
+		this.add(new JLabel("Código"));
 		this.add(textCodigo);
 		
 		botaoLogin = new JButton("Login");
@@ -53,9 +55,10 @@ public class PainelLogin extends JPanel {
 				try{
 					twitterInterface
 						.login(textCodigo.getText());
-					janelaPrincipal.mostre(Paineis.Tweets);
+					janelaPrincipal.setContentPane(new PainelTweets(twitterInterface));
 				}
 				catch (RuntimeException ex){
+					ex.printStackTrace();
 					//TODO: Tratar erro de login
 				}
 			}
