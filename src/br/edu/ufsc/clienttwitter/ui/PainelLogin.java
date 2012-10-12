@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -35,7 +34,7 @@ public class PainelLogin extends JPanel {
 	private void initComponents() {
 		textCodigo = new JTextField(15);
 		
-		btnGerarCodigo = new JButton("Permitir acesso à conta");
+		btnGerarCodigo = new JButton("Permitir acesso ï¿½ conta");
 		btnGerarCodigo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -45,7 +44,7 @@ public class PainelLogin extends JPanel {
 		this.add(btnGerarCodigo);
 		
 		
-		this.add(new JLabel("Código"));
+		this.add(new JLabel("Cï¿½digo"));
 		this.add(textCodigo);
 		
 		botaoLogin = new JButton("Login");
@@ -55,7 +54,7 @@ public class PainelLogin extends JPanel {
 				try{
 					twitterInterface
 						.login(textCodigo.getText());
-					janelaPrincipal.setContentPane(new PainelTweets(twitterInterface));
+					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (RuntimeException ex){
 					ex.printStackTrace();

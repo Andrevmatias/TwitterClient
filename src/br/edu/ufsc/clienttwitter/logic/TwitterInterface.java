@@ -46,12 +46,11 @@ public class TwitterInterface {
      }
 
 	public List<Tweet> getTweets(int numPagina) {
-		// TODO: Retornar a página numPagina de Tweets
 		List<Tweet> tweetsModel = new ArrayList<Tweet>();
 		try {
 			Paging paging = new Paging(numPagina, 20);
 			ResponseList<Status> tweets;
-			tweets = twitterManager.getUserTimeline(paging);
+			tweets = twitterManager.getHomeTimeline(paging);
 			for(Status tweet : tweets){
 				Tweet tweetModel = this.convertTweet(tweet);
 				tweetsModel.add(tweetModel);
@@ -67,12 +66,12 @@ public class TwitterInterface {
 		Tweet tweet = new Tweet();
 		tweet.setAutor(this.convertAutor(status.getUser()));
 		tweet.setMensagem(status.getText());
-		tweet.setFoto(new ImageIcon(status.getUser().getProfileImageURL()));
 		return tweet;
 	}
 
 	private Autor convertAutor(User source) {
 		Autor autor = new Autor();
+		autor.setFoto(new ImageIcon(source.getProfileImageURL()));
 		autor.setNome(source.getName());
 		return autor;
 	}

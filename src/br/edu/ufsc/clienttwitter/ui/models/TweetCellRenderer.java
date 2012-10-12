@@ -18,7 +18,7 @@ public class TweetCellRenderer extends JLabel implements ListCellRenderer<Tweet>
 	public Component getListCellRendererComponent(JList<? extends Tweet> list,
 			Tweet value, int index, boolean isSelected, boolean cellHasFocus) {
 		
-		setIcon(value.getFoto());
+		setIcon(value.getAutor().getFoto());
 		setText(value.getMensagem());
 		
 		setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
