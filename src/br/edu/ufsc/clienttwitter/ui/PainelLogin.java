@@ -34,7 +34,7 @@ public class PainelLogin extends JPanel {
 	private void initComponents() {
 		textCodigo = new JTextField(15);
 		
-		btnGerarCodigo = new JButton("Permitir acesso ï¿½ conta");
+		btnGerarCodigo = new JButton("Permitir acesso à conta");
 		btnGerarCodigo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -44,7 +44,7 @@ public class PainelLogin extends JPanel {
 		this.add(btnGerarCodigo);
 		
 		
-		this.add(new JLabel("Cï¿½digo"));
+		this.add(new JLabel("Código"));
 		this.add(textCodigo);
 		
 		botaoLogin = new JButton("Login");
