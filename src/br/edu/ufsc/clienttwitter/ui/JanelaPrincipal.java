@@ -7,6 +7,8 @@ import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private TwitterInterface twitterInterface;
 	
 	private PainelLogin painelLogin;
