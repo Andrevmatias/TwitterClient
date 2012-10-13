@@ -7,11 +7,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
@@ -38,6 +40,8 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
+		this.add(new JLabel("Código"));
+		
 		textCodigo = new JTextField(15);
 		this.add(textCodigo);
 		
@@ -66,11 +70,26 @@ public class PainelLogin extends JPanel {
 		});
 		this.add(lblGerarCodigo);
 		
+		JLabel lblCodigo = new JLabel("Código");
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addComponent(new JLabel("Código"))
-				.addComponent(textCodigo)
-				.addComponent(botaoLogin)
+				.addComponent(lblCodigo)
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(textCodigo)
+						.addComponent(lblGerarCodigo)
+				).addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(botaoLogin)
+				)
 		);
+		layout.linkSize(SwingConstants.HORIZONTAL, textCodigo, lblGerarCodigo);
+		
+		layout.setVerticalGroup(layout.createSequentialGroup()
+			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+			        .addComponent(lblCodigo)
+			        .addComponent(textCodigo)
+			        .addComponent(botaoLogin))
+			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			    		.addComponent(lblGerarCodigo))
+			);
 	}
 
 }
