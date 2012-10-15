@@ -37,6 +37,7 @@ public class PainelLogin extends JPanel {
 		this.setLayout(layout);
 		
 		initComponents();
+		positionateComponents();
 	}
 
 	private void initComponents() {
@@ -69,7 +70,9 @@ public class PainelLogin extends JPanel {
 			}
 		});
 		this.add(lblGerarCodigo);
-		
+	}
+
+	private void positionateComponents() {
 		JLabel lblCodigo = new JLabel("Código");
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addComponent(lblCodigo)
