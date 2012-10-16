@@ -1,8 +1,11 @@
 package br.edu.ufsc.clienttwitter.ui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.InputVerifier;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -20,6 +23,7 @@ public class PainelTweets extends JPanel {
 	private JList<Tweet> listaTweets;
 	private JScrollPane paneTweets;
 	private JTextArea textTweet;
+	private JButton twittar;
 
 	public PainelTweets(TwitterInterface twitterInterface) {
 		super(new BorderLayout(3, 3));
@@ -43,7 +47,20 @@ public class PainelTweets extends JPanel {
 				return ((JTextComponent)input).getText().length() <= 140;
 			}
 		});
+		
 		this.add(textTweet, BorderLayout.PAGE_END);
+		
+		twittar = new JButton();
+		twittar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				twitterInterface.twitar(textTweet.getText());
+			}
+		});
+		this.add(twittar, BorderLayout.EAST);
+		
 	}
 
 }

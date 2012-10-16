@@ -76,10 +76,10 @@ public class TwitterInterface {
 		return autor;
 	}
 	
-	public void Tweet(String tweet){
+	public void twitar(String tweet){
 		//TODO: Permitir que seja enviado um tweet do usurio
 		try {
-			twitterManager.updateStatus(tweet);
+			Status status = twitterManager.updateStatus(tweet);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
