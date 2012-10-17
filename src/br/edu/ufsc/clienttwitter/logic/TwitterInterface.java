@@ -28,20 +28,9 @@ public class TwitterInterface {
 		this.twitterManager.setOAuthConsumer("2dcs3CVXhfMM1lWL2rUSdQ", "Qi0HAa6dVB0O1XNM2u9hjxZih367dZ8mYS0NLw");
 	}
 
-	public void login(String codigo) {
-        //TODO Implementar login
-        AccessToken accessToken = null;
-        try {
-            while( accessToken == null){
-                 if(codigo.length() > 0){
-                       accessToken = twitterManager.getOAuthAccessToken(requestToken, codigo);
-                 } else{
-                       accessToken = twitterManager.getOAuthAccessToken();
-                   }
-            }
-        } catch (TwitterException e) {
-        	e.printStackTrace();
-        }
+	public void login(String codigo) throws TwitterException {
+        AccessToken accessToken = 
+        		twitterManager.getOAuthAccessToken(requestToken, codigo);
         twitterManager.setOAuthAccessToken(accessToken);
      }
 
@@ -76,30 +65,22 @@ public class TwitterInterface {
 		return autor;
 	}
 	
-	public void twitar(String tweet){
+	public void twitar(String tweet) throws TwitterException{
 		//TODO: Permitir que seja enviado um tweet do usurio
-		try {
-			Status status = twitterManager.updateStatus(tweet);
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		twitterManager.updateStatus(tweet);
 	}
 
 	public void abrirPaginaDeAutorizacao() {
-		// TODO: Abre a página para gerar código de autorização
+		// TODO: Dar suporte a sistemas que não dão suporte a Desktop
 		Desktop desktop = Desktop.getDesktop();
 		try{
 			requestToken = twitterManager.getOAuthRequestToken();
 			desktop.browse(new URI(requestToken.getAuthorizationURL())); 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

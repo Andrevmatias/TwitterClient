@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import twitter4j.TwitterException;
+
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
@@ -54,8 +56,9 @@ public class PainelLogin extends JPanel {
 					twitterInterface.login(textCodigo.getText());
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
-				catch (RuntimeException ex){
+				catch (TwitterException ex){
 					JOptionPane.showMessageDialog(null, "Código inválido");
+					ex.printStackTrace();
 				}
 			}
 		});
