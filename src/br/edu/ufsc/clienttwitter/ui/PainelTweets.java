@@ -7,13 +7,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 import javax.swing.text.JTextComponent;
 
-import twitter4j.TwitterException;
 import br.edu.ufsc.clienttwitter.logic.Tweet;
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.models.TweetCellRenderer;
@@ -52,16 +51,10 @@ public class PainelTweets extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					try {
-						String tweet = textTweet.getText();
-						textTweet.setText("");
-						twitterInterface.twitar(tweet);
-						carregarPagina(1);
-					} catch (TwitterException e1) {
-						JOptionPane
-							.showMessageDialog(null, "Erro ao twitar", 
-									"Erro", JOptionPane.ERROR_MESSAGE);
-					}
+					String tweet = textTweet.getText();
+					textTweet.setText("");
+					new TweetSender(tweet).run();
+					repaint();
 				}
 			}	
 		});
@@ -73,6 +66,25 @@ public class PainelTweets extends JPanel {
 				.getTweets(numPagina)
 				.toArray(new Tweet[0]);
 		listaTweets.setListData(tweets);
+	}
+	
+	private class TweetSender extends SwingWorker<Void, Void>{
+		private String tweet;
+
+		public TweetSender(String tweet) {
+			this.tweet = tweet;
+		}
+		
+		@Override
+		protected void done() {
+			carregarPagina(1);
+		}
+		
+		@Override
+		protected Void doInBackground() throws Exception {
+			twitterInterface.twitar(tweet);
+			return null;
+		}
 	}
 
 }
