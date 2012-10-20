@@ -1,13 +1,15 @@
 package br.edu.ufsc.clienttwitter.ui;
 
 import java.awt.BorderLayout;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.DefaultListModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -24,34 +26,40 @@ public class PainelTweets extends JPanel {
 	private JList<Tweet> listaTweets;
 	private JScrollPane paneTweets;
 	private JTextArea textTweet;
+	
+	private int paginaAtual = 1;
+	private Thread atualizadorTweets;
 
 	public PainelTweets(TwitterInterface twitterInterface) {
 		super(new BorderLayout(3, 3));
 		this.twitterInterface = twitterInterface;
 		
 		initComponents();
-		Thread att = new Thread() {
-			public void run() {
-				while(true) {
-					try {
-						carregarPagina(1); // Atualiza a lista
-						this.sleep(2000); // Dorme por 2 segundos
-					} catch (InterruptedException e) {
-						JOptionPane
-						.showMessageDialog(null, "Não foi possível conectar ao Twitter. Favor verificar a conexão",  "Erro", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-		};
-		att.start();
 	}
 
+
 	private void initComponents() {
-		listaTweets = new JList<Tweet>(new Tweet[0]);
+		listaTweets = new JList<Tweet>(new DefaultListModel<Tweet>());
 		listaTweets.setCellRenderer(new TweetCellRenderer());
 		
 		paneTweets = new JScrollPane(listaTweets);
 		this.add(paneTweets, BorderLayout.CENTER);
+		paneTweets.getVerticalScrollBar()
+			.addAdjustmentListener(new AdjustmentListener() {
+			@Override
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				if(e.getValueIsAdjusting()) return;
+				
+				int viewPosition = paneTweets.getViewport().getViewPosition().y;
+				int viewSize = paneTweets.getViewport().getSize().height;
+				int listaSize = listaTweets.getSize().height;
+				
+				boolean scrolledToEnd = (viewPosition + viewSize) >= listaSize;
+						
+				if(scrolledToEnd)
+					carregarPagina(++paginaAtual);
+			}
+		});
 		
 		textTweet = new JTextArea(5, 10);
 		textTweet.setInputVerifier(new InputVerifier() {
@@ -67,8 +75,7 @@ public class PainelTweets extends JPanel {
 				{
 					String tweet = textTweet.getText();
 					textTweet.setText("");
-					new TweetSender(tweet).run();
-					repaint();
+					new TweetSender(tweet).execute();
 				}
 			}	
 		});
@@ -76,11 +83,27 @@ public class PainelTweets extends JPanel {
 	}
 
 	private void carregarPagina(int numPagina) {
-		Tweet[] tweets = (Tweet[]) twitterInterface
-				.getTweets(numPagina)
-				.toArray(new Tweet[0]);
-		listaTweets.setListData(tweets);
+		Tweet[] tweets = twitterInterface.getTweets(numPagina);
+		int index = tweets.length * (numPagina - 1);
 		
+		for(Tweet tweet : tweets){
+			DefaultListModel<Tweet> model = 
+					(DefaultListModel<Tweet>)listaTweets.getModel(); 
+			
+			if(model.getSize() < index)
+				model.add(index, tweet); //Adiciona na pÃ¡gina correta
+			else
+				model.addElement(tweet); //Caso a pÃ¡gina ainda nÃ£o tenha sido carregada 
+
+			index++;
+		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		atualizadorTweets.interrupt();
+		atualizadorTweets = null;
+		super.finalize();
 	}
 	
 	private class TweetSender extends SwingWorker<Void, Void>{
@@ -92,6 +115,11 @@ public class PainelTweets extends JPanel {
 		
 		@Override
 		protected void done() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				//Nada a fazer
+			}
 			carregarPagina(1);
 		}
 		
@@ -101,5 +129,4 @@ public class PainelTweets extends JPanel {
 			return null;
 		}
 	}
-
 }
