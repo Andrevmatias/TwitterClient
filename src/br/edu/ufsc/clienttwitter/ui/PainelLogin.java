@@ -43,7 +43,7 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
-		this.add(new JLabel("C贸digo"));
+		this.add(new JLabel("C骴igo"));
 		
 		textCodigo = new JTextField(15);
 		this.add(textCodigo);
@@ -57,14 +57,14 @@ public class PainelLogin extends JPanel {
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (TwitterException ex){
-					JOptionPane.showMessageDialog(null, "C贸digo inv谩lido");
+					JOptionPane.showMessageDialog(null, "C骴igo inv醠ido");
 					ex.printStackTrace();
 				}
 			}
 		});
 		this.add(botaoLogin);
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar c贸digo para acesso</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar c骴igo para acesso</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -76,7 +76,7 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("C贸digo");
+		JLabel lblCodigo = new JLabel("C骴igo");
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addComponent(lblCodigo)
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)

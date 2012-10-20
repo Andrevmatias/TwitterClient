@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,7 +30,20 @@ public class PainelTweets extends JPanel {
 		this.twitterInterface = twitterInterface;
 		
 		initComponents();
-		carregarPagina(1);
+		Thread att = new Thread() {
+			public void run() {
+				while(true) {
+					try {
+						carregarPagina(1); // Atualiza a lista
+						this.sleep(2000); // Dorme por 2 segundos
+					} catch (InterruptedException e) {
+						JOptionPane
+						.showMessageDialog(null, "Não foi possível conectar ao Twitter. Favor verificar a conexão",  "Erro", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		};
+		att.start();
 	}
 
 	private void initComponents() {
@@ -66,6 +80,7 @@ public class PainelTweets extends JPanel {
 				.getTweets(numPagina)
 				.toArray(new Tweet[0]);
 		listaTweets.setListData(tweets);
+		
 	}
 	
 	private class TweetSender extends SwingWorker<Void, Void>{
