@@ -30,7 +30,11 @@ import br.edu.ufsc.clienttwitter.ui.models.TweetCellRenderer;
 public class PainelTweets extends JPanel {
 
 	private TwitterInterface twitterInterface;
+	
 	private JList<Tweet> listaTweets;
+	private JPopupMenu popupListaTweets;
+	private JMenuItem itemRetwittar;
+	
 	private JScrollPane paneTweets;
 	private JTextArea textTweet;
 
@@ -49,35 +53,32 @@ public class PainelTweets extends JPanel {
 		listaTweets = new JList<Tweet>(new DefaultListModel<Tweet>());
 		listaTweets.setCellRenderer(new TweetCellRenderer());
 		
-		 JPopupMenu menu = new JPopupMenu(); 
-	        JMenuItem item = new JMenuItem("Retwittar");
+		popupListaTweets = new JPopupMenu(); 
+        itemRetwittar = new JMenuItem("Retwittar");
 	       
-	        item.addMouseListener(new MouseAdapter() {
-	            public void mouseClicked(MouseEvent evt) {
-	                Tweet tweet = (Tweet) evt.getSource();
-	                System.out.println(tweet.getMensagem());
-	            }
-	        }
-	        );
-	       item.addActionListener(new ActionListener() {
-			
+        itemRetwittar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				//TÃ¡ aqui o tweet
+				//TODO Retwettar
+				Tweet tweet = listaTweets.getSelectedValue();
 			}
 		});
-	        menu.add(item);       
-	       
-	        listaTweets.setComponentPopupMenu(menu);
-	       
-	        listaTweets.addMouseListener(new MouseAdapter() {
-	            public void mouseClicked(MouseEvent evt) {
-	                if (SwingUtilities.isRightMouseButton(evt)) {
-	                    listaTweets.getComponentPopupMenu().show(null, evt.getX(), evt.getY()); 
-	                }
-	            }
-	        });
+        popupListaTweets.add(itemRetwittar);       
+       
+       
+        listaTweets.addMouseListener(new MouseAdapter() {
+        	@Override
+            public void mousePressed(MouseEvent evt) {
+                if (SwingUtilities.isRightMouseButton(evt)) {
+                	
+                	listaTweets.setSelectedIndex(
+                			listaTweets.locationToIndex(evt.getPoint()));
+                	
+                    popupListaTweets.show(listaTweets, evt.getX(), evt.getY()); 
+                }
+            }
+        });
 
 		paneTweets = new JScrollPane(listaTweets);
 		this.add(paneTweets, BorderLayout.CENTER);
@@ -127,10 +128,10 @@ public class PainelTweets extends JPanel {
 			DefaultListModel<Tweet> model =
 					(DefaultListModel<Tweet>)listaTweets.getModel();
 
-			if(model.getSize() < index)
-				model.add(index, tweet); //Adiciona na página correta
+			if(model.size() > index)
+				model.add(index, tweet); //Adiciona na pï¿½gina correta
 			else
-				model.addElement(tweet); //Caso a página ainda não tenha sido carregada
+				model.addElement(tweet); //Caso a pï¿½gina ainda nï¿½o tenha sido carregada
 
 			index++;
 		}
