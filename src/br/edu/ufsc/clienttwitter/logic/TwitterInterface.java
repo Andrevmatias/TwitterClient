@@ -20,27 +20,29 @@ import twitter4j.auth.RequestToken;
 
 public class TwitterInterface {
 
+	private static final int TWEETS_POR_PAGINA = 20;
 	private Twitter twitterManager;
 	private RequestToken requestToken;
 
 	public TwitterInterface(Twitter twitterManager) {
 		this.twitterManager = twitterManager;
-		this.twitterManager.setOAuthConsumer("2dcs3CVXhfMM1lWL2rUSdQ", "Qi0HAa6dVB0O1XNM2u9hjxZih367dZ8mYS0NLw");
+		this.twitterManager.setOAuthConsumer("2dcs3CVXhfMM1lWL2rUSdQ",
+				"Qi0HAa6dVB0O1XNM2u9hjxZih367dZ8mYS0NLw");
 	}
 
 	public void login(String codigo) throws TwitterException {
-        AccessToken accessToken = 
-        		twitterManager.getOAuthAccessToken(requestToken, codigo);
-        twitterManager.setOAuthAccessToken(accessToken);
-     }
+		AccessToken accessToken = twitterManager.getOAuthAccessToken(
+				requestToken, codigo);
+		twitterManager.setOAuthAccessToken(accessToken);
+	}
 
-	public List<Tweet> getTweets(int numPagina) {
+	public Tweet[] getTweets(int numPagina) {
 		List<Tweet> tweetsModel = new ArrayList<Tweet>();
 		try {
-			Paging paging = new Paging(numPagina, 20);
+			Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
 			ResponseList<Status> tweets;
 			tweets = twitterManager.getHomeTimeline(paging);
-			for(Status tweet : tweets){
+			for (Status tweet : tweets) {
 				Tweet tweetModel = this.convertTweet(tweet);
 				tweetsModel.add(tweetModel);
 			}
@@ -48,13 +50,14 @@ public class TwitterInterface {
 			e.printStackTrace();
 		}
 
-		return tweetsModel;
+		return tweetsModel.toArray(new Tweet[0]);
 	}
-	
+
 	private Tweet convertTweet(Status status) {
 		Tweet tweet = new Tweet();
 		tweet.setAutor(this.convertAutor(status.getUser()));
 		tweet.setMensagem(status.getText());
+		tweet.setId(status.getId());
 		return tweet;
 	}
 
@@ -64,18 +67,18 @@ public class TwitterInterface {
 		autor.setNome(source.getName());
 		return autor;
 	}
-	
-	public void twitar(String tweet) throws TwitterException{
-		//TODO: Permitir que seja enviado um tweet do usurio
+
+	public void twitar(String tweet) throws TwitterException {
+		// TODO: Permitir que seja enviado um tweet do usurio
 		twitterManager.updateStatus(tweet);
 	}
 
 	public void abrirPaginaDeAutorizacao() {
-		// TODO: Dar suporte a sistemas que n√£o d√£o suporte a Desktop
+		// TODO: Dar suporte a sistemas que n„o d„o suporte a Desktop
 		Desktop desktop = Desktop.getDesktop();
-		try{
+		try {
 			requestToken = twitterManager.getOAuthRequestToken();
-			desktop.browse(new URI(requestToken.getAuthorizationURL())); 
+			desktop.browse(new URI(requestToken.getAuthorizationURL()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -84,5 +87,14 @@ public class TwitterInterface {
 			e.printStackTrace();
 		}
 	}
-}
+	
+	public void retwittar(long idTweet){
+		try {
+			twitterManager.retweetStatus(idTweet);
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+}
