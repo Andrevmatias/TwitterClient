@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.net.ssl.SSLEngineResult.Status;
 import javax.swing.DefaultListModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -61,7 +62,9 @@ public class PainelTweets extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				//Tá aqui o tweet
 				//TODO Retwettar
+				//Mudar Tweet tweet para Status tweet;
 				Tweet tweet = listaTweets.getSelectedValue();
+				twitterInterface.retwittar(tweet.getId());
 			}
 		});
         popupListaTweets.add(itemRetwittar);       

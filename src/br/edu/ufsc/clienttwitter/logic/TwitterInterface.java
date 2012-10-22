@@ -39,26 +39,25 @@ public class TwitterInterface {
 	public Tweet[] getTweets(int numPagina) {
 		List<Tweet> tweetsModel = new ArrayList<Tweet>();
 		try {
-		Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
-		ResponseList<Status> tweets;
-		tweets = twitterManager.getHomeTimeline(paging);
-		for(Status tweet : tweets){
-		Tweet tweetModel = this.convertTweet(tweet);
-		tweetsModel.add(tweetModel);
-		}
+			Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
+			ResponseList<Status> tweets;
+			tweets = twitterManager.getHomeTimeline(paging);
+			for (Status tweet : tweets) {
+				Tweet tweetModel = this.convertTweet(tweet);
+				tweetsModel.add(tweetModel);
+			}
 		} catch (TwitterException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return tweetsModel.toArray(new Tweet[0]);
 	}
 
-	
-
 	private Tweet convertTweet(Status status) {
 		Tweet tweet = new Tweet();
 		tweet.setAutor(this.convertAutor(status.getUser()));
 		tweet.setMensagem(status.getText());
+		tweet.setId(status.getId());
 		return tweet;
 	}
 
@@ -88,4 +87,14 @@ public class TwitterInterface {
 			e.printStackTrace();
 		}
 	}
+	
+	public void retwittar(long idTweet){
+		try {
+			twitterManager.retweetStatus(idTweet);
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
