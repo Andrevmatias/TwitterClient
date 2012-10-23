@@ -1,31 +1,36 @@
 package br.edu.ufsc.clienttwitter.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import twitter4j.TwitterException;
-
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class PainelLogin extends JPanel {
-
+	
+	private static final String ENDERECO_IMAGEM_PASSARINHO = "http://www.essaseoutras.xpg.com.br/wp-content/uploads/2012/03/twitter-logo.jpg";
+	private static final String ENDERECO_IMAGEM_BOTAO_ENTRAR = "http://i.imgur.com/GOfpA.png";
 	private TwitterInterface twitterInterface;
 	private JTextField textCodigo;
-	
+	private JLabel imagem;	
 	private JButton botaoLogin;
 	private JLabel lblGerarCodigo;
 	private JanelaPrincipal janelaPrincipal;
@@ -44,12 +49,19 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
-		this.add(new JLabel("Cdigo"));
+		try {
+			imagem = new JLabel(new ImageIcon(new URL(ENDERECO_IMAGEM_PASSARINHO)));
+			botaoLogin = new JButton(new ImageIcon(new URL(ENDERECO_IMAGEM_BOTAO_ENTRAR)));
+//			botaoLogin.setSelectedIcon("C:/Users/Paulo Ricardo/Documents/Programação/Eclipse/TwitterClient/botao_login2.png")
+		} catch (MalformedURLException e1) {
+			//Improvável
+		}
+		textCodigo = new JTextField(13);
+		textCodigo.setText("Digite aqui seu codigo");
 		
-		textCodigo = new JTextField(15);
-		this.add(textCodigo);
-		
-		botaoLogin = new JButton("Login");
+		botaoLogin.setBackground(null);
+		botaoLogin.setHideActionText(true);
+		botaoLogin.setBorderPainted(false);
 		botaoLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,13 +71,11 @@ public class PainelLogin extends JPanel {
 				}
 				catch (TwitterException ex){
 					JOptionPane.showMessageDialog(null, "Código inválido");
-					ex.printStackTrace();
 				}
 			}
 		});
-		this.add(botaoLogin);
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar código para acesso</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar código para entrar</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -73,8 +83,34 @@ public class PainelLogin extends JPanel {
 				abrirPaginaDeAutorizacao();
 			}
 		});
-		this.add(lblGerarCodigo);
 	}
+
+
+
+
+
+	private void positionateComponents() {
+		JLabel lblCodigo = new JLabel("Código");
+		LayoutManager border1 = new BorderLayout();
+		this.setLayout(border1);
+				
+		JPanel painelImagem = new JPanel();
+		JPanel meio = new JPanel();
+		JPanel inferiorr = new JPanel();
+		painelImagem.add(imagem);
+		painelImagem.setBackground(Color.white);
+		meio.setBackground(Color.white);
+		inferiorr.setBackground(Color.white);
+		meio.add(lblCodigo);
+		meio.add(textCodigo);
+		meio.add(botaoLogin);
+		inferiorr.add(lblGerarCodigo);
+		
+		this.add(painelImagem, BorderLayout.NORTH);
+		this.add(meio, BorderLayout.CENTER);
+		this.add(inferiorr, BorderLayout.SOUTH);
+			
+		}
 
 	private void abrirPaginaDeAutorizacao() {
 		try {
@@ -87,28 +123,6 @@ public class PainelLogin extends JPanel {
 					"Gerar código", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-
-	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("Código");
-		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addComponent(lblCodigo)
-				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textCodigo)
-						.addComponent(lblGerarCodigo)
-				).addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(botaoLogin)
-				)
-		);
-		layout.linkSize(SwingConstants.HORIZONTAL, textCodigo, lblGerarCodigo);
-		
-		layout.setVerticalGroup(layout.createSequentialGroup()
-			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-			        .addComponent(lblCodigo)
-			        .addComponent(textCodigo)
-			        .addComponent(botaoLogin))
-			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-			    		.addComponent(lblGerarCodigo))
-			);
-	}
-
+	
 }
+	
