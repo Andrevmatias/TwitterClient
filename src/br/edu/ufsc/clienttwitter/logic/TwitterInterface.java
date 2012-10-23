@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
+
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -36,18 +38,17 @@ public class TwitterInterface {
 		twitterManager.setOAuthAccessToken(accessToken);
 	}
 
-	public Tweet[] getTweets(int numPagina) {
+	public Tweet[] getTweets(int numPagina) throws TwitterException {
 		List<Tweet> tweetsModel = new ArrayList<Tweet>();
-		try {
-			Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
-			ResponseList<Status> tweets;
-			tweets = twitterManager.getHomeTimeline(paging);
-			for (Status tweet : tweets) {
-				Tweet tweetModel = this.convertTweet(tweet);
-				tweetsModel.add(tweetModel);
-			}
-		} catch (TwitterException e) {
-			e.printStackTrace();
+		
+		Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
+		
+		ResponseList<Status> tweets;
+		tweets = twitterManager.getHomeTimeline(paging);
+		
+		for (Status tweet : tweets) {
+			Tweet tweetModel = this.convertTweet(tweet);
+			tweetsModel.add(tweetModel);
 		}
 
 		return tweetsModel.toArray(new Tweet[0]);
@@ -69,32 +70,25 @@ public class TwitterInterface {
 	}
 
 	public void twitar(String tweet) throws TwitterException {
-		// TODO: Permitir que seja enviado um tweet do usurio
 		twitterManager.updateStatus(tweet);
 	}
 
-	public void abrirPaginaDeAutorizacao() {
-		// TODO: Dar suporte a sistemas que n„o d„o suporte a Desktop
+	public void abrirPaginaDeAutorizacao() throws TwitterException, ImpossivelAbrirBrowserException {
 		Desktop desktop = Desktop.getDesktop();
+		requestToken = twitterManager.getOAuthRequestToken();
+		String url = requestToken.getAuthorizationURL();
 		try {
-			requestToken = twitterManager.getOAuthRequestToken();
-			desktop.browse(new URI(requestToken.getAuthorizationURL()));
-		} catch (IOException e) {
-			e.printStackTrace();
+			desktop.browse(new URI(url));
+		} catch (IOException | UnsupportedOperationException e) {
+			throw new ImpossivelAbrirBrowserException(url, e);
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
+			//Improv√°vel
 			e.printStackTrace();
 		}
 	}
 	
-	public void retwittar(long idTweet){
-		try {
-			twitterManager.retweetStatus(idTweet);
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void retwittar(long idTweet) throws TwitterException{
+		twitterManager.retweetStatus(idTweet);
 	}
 
 }

@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import twitter4j.TwitterException;
 
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
+import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class PainelLogin extends JPanel {
@@ -43,7 +44,7 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
-		this.add(new JLabel("C骴igo"));
+		this.add(new JLabel("C贸digo"));
 		
 		textCodigo = new JTextField(15);
 		this.add(textCodigo);
@@ -57,26 +58,38 @@ public class PainelLogin extends JPanel {
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (TwitterException ex){
-					JOptionPane.showMessageDialog(null, "C骴igo inv醠ido");
+					JOptionPane.showMessageDialog(null, "C贸digo inv谩lido");
 					ex.printStackTrace();
 				}
 			}
 		});
 		this.add(botaoLogin);
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar c骴igo para acesso</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar c贸digo para acesso</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
-				twitterInterface.abrirPaginaDeAutorizacao();
+				abrirPaginaDeAutorizacao();
 			}
 		});
 		this.add(lblGerarCodigo);
 	}
 
+	private void abrirPaginaDeAutorizacao() {
+		try {
+			twitterInterface.abrirPaginaDeAutorizacao();
+		} catch (TwitterException e) {
+			JOptionPane.showMessageDialog(this, "Erro ao abrir p谩gina de autoriza莽茫o");
+		} catch (ImpossivelAbrirBrowserException e) {
+			JOptionPane.showMessageDialog(this, "Favor acessar " + 
+					e.getUri() + "para gerar o c贸digo de autentica莽茫o", 
+					"Gerar c贸digo", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
 	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("C骴igo");
+		JLabel lblCodigo = new JLabel("C贸digo");
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addComponent(lblCodigo)
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)

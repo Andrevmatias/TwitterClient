@@ -7,22 +7,20 @@ import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-
 	private TwitterInterface twitterInterface;
 	
 	private PainelLogin painelLogin;
 
-	public JanelaPrincipal(final TwitterInterface twitterInterface) {
+	public JanelaPrincipal(TwitterInterface twitterInterface) {
 		this.twitterInterface = twitterInterface;
 		
-		this.setTitle("The Passarinho");
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("The Passarinho");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		initComponents();
 		
-		this.pack();
+		pack();
+		setLocationRelativeTo(null);
 	}
 
 	private void initComponents() {
@@ -42,9 +40,8 @@ public class JanelaPrincipal extends JFrame {
 		case Login:
 			this.setContentPane(new PainelLogin(this, twitterInterface));
 			break;
-		default:
-			break;
 		}
 		pack();
+		setLocationRelativeTo(null);
 	}
 }

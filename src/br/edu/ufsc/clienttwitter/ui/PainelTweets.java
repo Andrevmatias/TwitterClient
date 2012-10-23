@@ -10,20 +10,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.swing.DefaultListModel;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.text.JTextComponent;
 
+import twitter4j.TwitterException;
 import br.edu.ufsc.clienttwitter.logic.Tweet;
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.models.TweetCellRenderer;
@@ -40,15 +38,16 @@ public class PainelTweets extends JPanel {
 	private JTextArea textTweet;
 
 	private int paginaAtual = 1;
-	private Thread atualizadorTweets;
 
 	public PainelTweets(TwitterInterface twitterInterface) {
 		super(new BorderLayout(3, 3));
 		this.twitterInterface = twitterInterface;
 
+		this.setSize(100, 300);
+		
 		initComponents();
+		carreguePagina(paginaAtual);
 	}
-
 
 	private void initComponents() {
 		listaTweets = new JList<Tweet>(new DefaultListModel<Tweet>());
@@ -60,24 +59,17 @@ public class PainelTweets extends JPanel {
         itemRetwittar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Tá aqui o tweet
-				//TODO Retwettar
-				//Mudar Tweet tweet para Status tweet;
-				Tweet tweet = listaTweets.getSelectedValue();
-				twitterInterface.retwittar(tweet.getId());
+				retwitteSelecionado();
 			}
 		});
         popupListaTweets.add(itemRetwittar);       
        
-       
         listaTweets.addMouseListener(new MouseAdapter() {
         	@Override
             public void mousePressed(MouseEvent evt) {
-                if (SwingUtilities.isRightMouseButton(evt)) {
-                	
+                if (SwingUtilities.isRightMouseButton(evt)) {           	
                 	listaTweets.setSelectedIndex(
                 			listaTweets.locationToIndex(evt.getPoint()));
-                	
                     popupListaTweets.show(listaTweets, evt.getX(), evt.getY()); 
                 }
             }
@@ -85,66 +77,79 @@ public class PainelTweets extends JPanel {
 
 		paneTweets = new JScrollPane(listaTweets);
 		this.add(paneTweets, BorderLayout.CENTER);
+		
 		paneTweets.getVerticalScrollBar()
-		.addAdjustmentListener(new AdjustmentListener() {
-			@Override
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				if(e.getValueIsAdjusting()) return;
-
-				int viewPosition = paneTweets.getViewport().getViewPosition().y;
-				int viewSize = paneTweets.getViewport().getSize().height;
-				int listaSize = listaTweets.getSize().height;
-
-				boolean scrolledToEnd = (viewPosition + viewSize) >= listaSize;
-
-				if(scrolledToEnd)
-					carregarPagina(++paginaAtual);
-			}
-		});
+			.addAdjustmentListener(new AdjustmentListener() {
+				@Override
+				public void adjustmentValueChanged(AdjustmentEvent e) {
+					if(e.getValueIsAdjusting()) return;
+	
+					int viewPosition = paneTweets.getViewport().getViewPosition().y;
+					int viewSize = paneTweets.getViewport().getSize().height;
+					int listaSize = listaTweets.getSize().height;
+	
+					boolean scrolledToEnd = (viewPosition + viewSize) >= listaSize;
+	
+					if(scrolledToEnd)
+						carreguePagina(++paginaAtual);
+				}
+			});
 
 		textTweet = new JTextArea(5, 10);
-		textTweet.setInputVerifier(new InputVerifier() {
-			@Override
-			public boolean verify(JComponent input) {
-				return ((JTextComponent)input).getText().length() <= 140;
-			}
-		});
+		textTweet.setLineWrap(true);
 		textTweet.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
-					String tweet = textTweet.getText();
-					textTweet.setText("");
-					new TweetSender(tweet).execute();
-				}
+					envieTweet();
 			}	
 		});
 		this.add(textTweet, BorderLayout.PAGE_END);
 	}
-
-	private void carregarPagina(int numPagina) {
-		Tweet[] tweets = twitterInterface.getTweets(numPagina);
-		int index = tweets.length * (numPagina - 1);
-
-		for(Tweet tweet : tweets){
-			DefaultListModel<Tweet> model =
-					(DefaultListModel<Tweet>)listaTweets.getModel();
-
-			if(model.size() > index)
-				model.add(index, tweet); //Adiciona na p�gina correta
-			else
-				model.addElement(tweet); //Caso a p�gina ainda n�o tenha sido carregada
-
-			index++;
+	
+	private void envieTweet(){
+		String tweet = textTweet.getText();
+		if(tweet.length() <= 140){
+			textTweet.setText("");
+			new TweetSender(tweet).execute();
+		}
+		else{
+			JOptionPane.showMessageDialog(this, 
+					"O tweet pode ter, no máximo, 140 caracteres", 
+					"140 caracteres", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private void retwitteSelecionado(){
+		Tweet tweet = listaTweets.getSelectedValue();
+		try {
+			twitterInterface.retwittar(tweet.getId());
+		} catch (TwitterException ex) {
+			JOptionPane.showMessageDialog(this, "Erro ao retwittar");
+			ex.printStackTrace();
 		}
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		atualizadorTweets.interrupt();
-		atualizadorTweets = null;
-		super.finalize();
+	private void carreguePagina(int numPagina) {
+		try{
+			Tweet[] tweets = twitterInterface.getTweets(numPagina);
+			int index = tweets.length * (numPagina - 1);
+	
+			for(Tweet tweet : tweets){
+				DefaultListModel<Tweet> model =
+						(DefaultListModel<Tweet>)listaTweets.getModel();
+	
+				if(model.size() > index)
+					model.add(index, tweet); //Adiciona na página correta
+				else
+					model.addElement(tweet); //Caso a página ainda não tenha sido carregada
+	
+				index++;
+			}
+		}catch(TwitterException e){
+			JOptionPane.showMessageDialog(this, "Erro ao carregar tweets",
+					"Carregar Tweets", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private class TweetSender extends SwingWorker<Void, Void>{
@@ -157,11 +162,11 @@ public class PainelTweets extends JPanel {
 		@Override
 		protected void done() {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				//Nada a fazer
 			}
-			carregarPagina(1);
+			carreguePagina(1);
 		}
 
 		@Override
