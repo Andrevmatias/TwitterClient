@@ -124,6 +124,7 @@ public class PainelTweets extends JPanel {
 		Tweet tweet = listaTweets.getSelectedValue();
 		try {
 			twitterInterface.retwittar(tweet.getId());
+			JOptionPane.showMessageDialog(null, "Retwittado com sucesso.");
 		} catch (TwitterException ex) {
 			JOptionPane.showMessageDialog(this, "Erro ao retwittar");
 			ex.printStackTrace();
@@ -172,6 +173,7 @@ public class PainelTweets extends JPanel {
 		@Override
 		protected Void doInBackground() throws Exception {
 			twitterInterface.twitar(tweet);
+			JOptionPane.showMessageDialog(null, "Twittado.");
 			return null;
 		}
 	}

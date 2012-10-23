@@ -44,7 +44,7 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void initComponents() {
-		this.add(new JLabel("Código"));
+		this.add(new JLabel("Cdigo"));
 		
 		textCodigo = new JTextField(15);
 		this.add(textCodigo);
@@ -58,14 +58,14 @@ public class PainelLogin extends JPanel {
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (TwitterException ex){
-					JOptionPane.showMessageDialog(null, "Código inválido");
+					JOptionPane.showMessageDialog(null, "C�digo inv�lido");
 					ex.printStackTrace();
 				}
 			}
 		});
 		this.add(botaoLogin);
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar código para acesso</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar c�digo para acesso</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -80,16 +80,16 @@ public class PainelLogin extends JPanel {
 		try {
 			twitterInterface.abrirPaginaDeAutorizacao();
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao abrir página de autorização");
+			JOptionPane.showMessageDialog(this, "Erro ao abrir p�gina de autoriza��o");
 		} catch (ImpossivelAbrirBrowserException e) {
 			JOptionPane.showMessageDialog(this, "Favor acessar " + 
-					e.getUri() + "para gerar o código de autenticação", 
-					"Gerar código", JOptionPane.INFORMATION_MESSAGE);
+					e.getUri() + "para gerar o c�digo de autentica��o", 
+					"Gerar c�digo", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
 	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("Código");
+		JLabel lblCodigo = new JLabel("C�digo");
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addComponent(lblCodigo)
 				.addGroup(layout.createParallelGroup(Alignment.LEADING)
