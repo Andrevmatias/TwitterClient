@@ -12,41 +12,42 @@ import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
-	
+
 	private JMenuBar barra;
 	private JMenu menu;
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
 	private TwitterInterface twitterInterface;
-	
+
 	private PainelLogin painelLogin;
 
 	public JanelaPrincipal(TwitterInterface twitterInterface) {
 		this.twitterInterface = twitterInterface;
-		
+
 		setTitle("The Passarinho");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		initComponents();
-		
+
 		pack();
 		setLocationRelativeTo(null);
-		
+
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
-		
+
 		menuItemAjuda.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// Depende da Ajuda do paulo;								
+				JanelaAjuda janela = new JanelaAjuda();
+				janela.interaja();
 			}
 		});
 		
 		menuItemSair.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(ABORT);
@@ -56,8 +57,7 @@ public class JanelaPrincipal extends JFrame {
 		menu.add(menuItemSair);
 		barra.add(menu);
 		super.setJMenuBar(barra);
-		
-		
+
 	}
 
 	private void initComponents() {
@@ -70,8 +70,8 @@ public class JanelaPrincipal extends JFrame {
 	}
 
 	public void mostre(Paineis tweets) {
-		switch(tweets){
-		case Tweets: 
+		switch (tweets) {
+		case Tweets:
 			this.setContentPane(new PainelTweets(twitterInterface));
 			break;
 		case Login:
