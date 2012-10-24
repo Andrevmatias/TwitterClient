@@ -56,7 +56,14 @@ public class PainelLogin extends JPanel {
 			//ImprovÃ¡vel
 		}
 		textCodigo = new JTextField(13);
-		textCodigo.setText("Digite aqui seu codigo");
+		textCodigo.setText("Digite aqui seu código");
+		textCodigo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e){
+				textCodigo.setText("");
+			}
+		});
+
 		
 		botaoLogin.setBackground(null);
 		botaoLogin.setHideActionText(true);
@@ -69,12 +76,12 @@ public class PainelLogin extends JPanel {
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (TwitterException ex){
-					JOptionPane.showMessageDialog(null, "Cï¿½digo invï¿½lido");
+					JOptionPane.showMessageDialog(null, "Código inválido");
 				}
 			}
 		});
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar cÃ³digo para entrar</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar código para entrar</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -85,7 +92,7 @@ public class PainelLogin extends JPanel {
 	}
 
 	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("CÃ³digo");
+		JLabel lblCodigo = new JLabel("Código");
 		LayoutManager border1 = new BorderLayout();
 		this.setLayout(border1);
 				
@@ -111,11 +118,11 @@ public class PainelLogin extends JPanel {
 		try {
 			twitterInterface.abrirPaginaDeAutorizacao();
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao abrir pÃ¡gina de autorizaÃ§Ã£o");
+			JOptionPane.showMessageDialog(this, "Erro ao abrir página de autorização");
 		} catch (ImpossivelAbrirBrowserException e) {
 			JOptionPane.showMessageDialog(this, "Favor acessar " + 
-					e.getUri() + "para gerar o cÃ³digo de autenticaÃ§Ã£oo", 
-					"Gerar cÃ³digo", JOptionPane.INFORMATION_MESSAGE);
+					e.getUri() + "para gerar o código de autenticação", 
+					"Gerar código", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
