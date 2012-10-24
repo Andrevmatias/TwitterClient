@@ -52,9 +52,8 @@ public class PainelLogin extends JPanel {
 		try {
 			imagem = new JLabel(new ImageIcon(new URL(ENDERECO_IMAGEM_PASSARINHO)));
 			botaoLogin = new JButton(new ImageIcon(new URL(ENDERECO_IMAGEM_BOTAO_ENTRAR)));
-//			botaoLogin.setSelectedIcon("C:/Users/Paulo Ricardo/Documents/Programação/Eclipse/TwitterClient/botao_login2.png")
 		} catch (MalformedURLException e1) {
-			//Improvável
+			//ImprovÃ¡vel
 		}
 		textCodigo = new JTextField(13);
 		textCodigo.setText("Digite aqui seu codigo");
@@ -70,12 +69,12 @@ public class PainelLogin extends JPanel {
 					janelaPrincipal.mostre(Paineis.Tweets);
 				}
 				catch (TwitterException ex){
-					JOptionPane.showMessageDialog(null, "Código inválido");
+					JOptionPane.showMessageDialog(null, "Cï¿½digo invï¿½lido");
 				}
 			}
 		});
 		
-		lblGerarCodigo = new JLabel("<html><u>Gerar código para entrar</u>");
+		lblGerarCodigo = new JLabel("<html><u>Gerar cÃ³digo para entrar</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -85,12 +84,8 @@ public class PainelLogin extends JPanel {
 		});
 	}
 
-
-
-
-
 	private void positionateComponents() {
-		JLabel lblCodigo = new JLabel("Código");
+		JLabel lblCodigo = new JLabel("CÃ³digo");
 		LayoutManager border1 = new BorderLayout();
 		this.setLayout(border1);
 				
@@ -116,11 +111,11 @@ public class PainelLogin extends JPanel {
 		try {
 			twitterInterface.abrirPaginaDeAutorizacao();
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao abrir página de autorização");
+			JOptionPane.showMessageDialog(this, "Erro ao abrir pÃ¡gina de autorizaÃ§Ã£o");
 		} catch (ImpossivelAbrirBrowserException e) {
 			JOptionPane.showMessageDialog(this, "Favor acessar " + 
-					e.getUri() + "para gerar o código de autenticação", 
-					"Gerar código", JOptionPane.INFORMATION_MESSAGE);
+					e.getUri() + "para gerar o cÃ³digo de autenticaÃ§Ã£oo", 
+					"Gerar cÃ³digo", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	

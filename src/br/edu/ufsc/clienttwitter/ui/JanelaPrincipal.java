@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
+import br.edu.ufsc.clienttwitter.ui.ajuda.JanelaAjuda;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
@@ -31,7 +32,9 @@ public class JanelaPrincipal extends JFrame {
 
 		pack();
 		setLocationRelativeTo(null);
+	}
 
+	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
 		menuItemAjuda = new JMenuItem("Ajuda");
@@ -56,11 +59,8 @@ public class JanelaPrincipal extends JFrame {
 		menu.add(menuItemAjuda);
 		menu.add(menuItemSair);
 		barra.add(menu);
-		super.setJMenuBar(barra);
-
-	}
-
-	private void initComponents() {
+		setJMenuBar(barra);
+		
 		painelLogin = new PainelLogin(this, twitterInterface);
 		this.setContentPane(painelLogin);
 	}

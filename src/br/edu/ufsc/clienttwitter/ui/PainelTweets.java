@@ -173,7 +173,6 @@ public class PainelTweets extends JPanel {
 		@Override
 		protected Void doInBackground() throws Exception {
 			twitterInterface.twitar(tweet);
-			JOptionPane.showMessageDialog(null, "Twittado.");
 			return null;
 		}
 	}

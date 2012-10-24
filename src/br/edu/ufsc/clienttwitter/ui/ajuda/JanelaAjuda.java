@@ -1,22 +1,21 @@
-package br.edu.ufsc.clienttwitter.ui;
+package br.edu.ufsc.clienttwitter.ui.ajuda;
 
 import java.awt.Color;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 
 
-public class JanelaAjuda extends JFrame {
+public class JanelaAjuda extends JDialog {
 	
 	private PainelPrincipalAjuda principalPainel = new PainelPrincipalAjuda();
 		
 	public JanelaAjuda(){
 		this.setBackground(Color.white);
 		this.setTitle("Ajuda");
+		this.setSize(600, 300);
 		this.setLocationRelativeTo(null);
-		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setContentPane(principalPainel);
-		pack();
-		
 	}
 	public void interaja() {
 		this.setVisible(true);		
