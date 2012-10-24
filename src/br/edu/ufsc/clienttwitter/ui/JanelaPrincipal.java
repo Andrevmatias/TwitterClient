@@ -1,12 +1,22 @@
 package br.edu.ufsc.clienttwitter.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
-
+	
+	private JMenuBar barra;
+	private JMenu menu;
+	private JMenuItem menuItemAjuda;
+	private JMenuItem menuItemSair;
 	private TwitterInterface twitterInterface;
 	
 	private PainelLogin painelLogin;
@@ -21,6 +31,33 @@ public class JanelaPrincipal extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+		
+		barra = new JMenuBar();
+		menu = new JMenu("Menu");
+		menuItemAjuda = new JMenuItem("Ajuda");
+		menuItemSair = new JMenuItem("Sair");
+		
+		menuItemAjuda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// Depende da Ajuda do paulo;								
+			}
+		});
+		
+		menuItemSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(ABORT);
+			}
+		});
+		menu.add(menuItemAjuda);
+		menu.add(menuItemSair);
+		barra.add(menu);
+		super.setJMenuBar(barra);
+		
+		
 	}
 
 	private void initComponents() {
