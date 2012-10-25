@@ -18,6 +18,9 @@ public class TweetFormatter {
 				if(palavra.charAt(0) == '@'){
 					builder.append("<font color=\"#3399FF\">" + palavra + "</font> ");
 				}
+				else if(palavra.charAt(0) == '#'){
+					builder.append("<font color=\"#003366\">" + palavra + "</font> ");
+				}
 				else if(palavra.contains("http")){
 					builder.append("<a href=\""+ palavra +"\">" + palavra + "</a> ");
 				}

@@ -38,14 +38,14 @@ public class PainelAjuda extends JScrollPane{
 			.append("<p>")
 			.append("<h2>Como entrar</h2>")
 			.append("Para acessar sua conta pelo The Passarinho " +
-					"É necessário gerar um código. Após gerado, " +
+					"Ã© necessÃ¡rio gerar um cÃ³digo. ApÃ³s gerado, " +
 					"insira no campo e clique em entrar.")
 			.append("</p>")
 			
 			.append("<p>")
-			.append("<h2>Como gerar o código</h2>")
-			.append("Para gerar o código basta clicar no link " +
-					"'Gerar código para acesso' e seguir os " +
+			.append("<h2>Como gerar o cÃ³digo</h2>")
+			.append("Para gerar o cÃ³digo basta clicar no link " +
+					"'Gerar cÃ³digo para acesso' e seguir os " +
 					"passos no site.")
 			.append("</p>")
 			
@@ -53,21 +53,21 @@ public class PainelAjuda extends JScrollPane{
 			.append("<h2>Como Twittar</h2>")
 			.append("Para twittar basta inserir o texto no campo" +
 					" inferior e apertar ENTER. Vale lembrar que " +
-					"o limite de caracteres é 140.")
+					"o limite de caracteres Ã© 140.")
 			.append("</p>")
 			
 			.append("<p>")
 			.append("<h2>Como Retwittar</h2>")
-			.append("Para retwittar basta clicar com o botão direito " +
+			.append("Para retwittar basta clicar com o botÃ£o direito " +
 					"do mouse no tweet desejado e selecionar a " +
-					"opção 'Retwittar'.")
+					"opÃ§Ã£o 'Retwittar'.")
 			.append("</p>")
 			
 			.append("<p>")
 			.append("<h2>Lista de Tweets</h2>")
 			.append("Caso deseje ver tweets antigos basta rolar o scroll " +
-					"do painel de tweets até o fim e seus tweets antigos " +
-					"irão ser carregados.")
+					"do painel de tweets atÃ© o fim e seus tweets antigos " +
+					"irÃ£o ser carregados.")
 			.append("</p>")
 			
 			.append("</div>");
