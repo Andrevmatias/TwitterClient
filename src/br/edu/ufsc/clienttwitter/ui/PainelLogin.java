@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
@@ -27,49 +29,64 @@ import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserExceptio
 import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
 
 public class PainelLogin extends JPanel {
-	
+
 	private static final String DICA_CODIGO = "Digite aqui seu código";
 	private static final String ENDERECO_IMAGEM_PASSARINHO = "http://www.essaseoutras.xpg.com.br/wp-content/uploads/2012/03/twitter-logo.jpg";
 	private static final String ENDERECO_IMAGEM_BOTAO_ENTRAR = "http://i.imgur.com/GOfpA.png";
 	private TwitterInterface twitterInterface;
 	private JTextField textCodigo;
-	private JLabel imagem;	
+	private JLabel imagem;
 	private JButton botaoLogin;
 	private JLabel lblGerarCodigo;
 	private JanelaPrincipal janelaPrincipal;
-	
+
 	private GroupLayout layout = new GroupLayout(this);
 
-	public PainelLogin(JanelaPrincipal janelaPrincipal, 
+	public PainelLogin(JanelaPrincipal janelaPrincipal,
 			TwitterInterface twitterInterface) {
 		this.twitterInterface = twitterInterface;
 		this.janelaPrincipal = janelaPrincipal;
-		
+
 		this.setLayout(layout);
-		
+
 		initComponents();
 		positionateComponents();
 	}
 
 	private void initComponents() {
 		try {
-			imagem = new JLabel(new ImageIcon(new URL(ENDERECO_IMAGEM_PASSARINHO)));
-			botaoLogin = new JButton(new ImageIcon(new URL(ENDERECO_IMAGEM_BOTAO_ENTRAR)));
+			imagem = new JLabel(new ImageIcon(new URL(
+					ENDERECO_IMAGEM_PASSARINHO)));
+			botaoLogin = new JButton(new ImageIcon(new URL(
+					ENDERECO_IMAGEM_BOTAO_ENTRAR)));
 		} catch (MalformedURLException e1) {
-			//Improvável
+			// Improvável
 		}
 		textCodigo = new JTextField(13);
 		textCodigo.setText(DICA_CODIGO);
 		textCodigo.addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(textCodigo.getText().equals(""))
+				if (textCodigo.getText().equals(""))
 					textCodigo.setText(DICA_CODIGO);
 			}
+
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(textCodigo.getText().equals(DICA_CODIGO))
+				if (textCodigo.getText().equals(DICA_CODIGO))
 					textCodigo.setText("");
+			}
+		});
+		textCodigo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					try {
+						twitterInterface.login(textCodigo.getText());
+						janelaPrincipal.mostre(Paineis.Tweets);
+					} catch (TwitterException ex) {
+						JOptionPane.showMessageDialog(null, "C�digo inv�lido");
+					}
 			}
 		});
 
@@ -82,12 +99,12 @@ public class PainelLogin extends JPanel {
 				login();
 			}
 		});
-		
+
 		lblGerarCodigo = new JLabel("<html><u>Gerar código para entrar</u>");
 		lblGerarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblGerarCodigo.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e){
+			public void mouseClicked(MouseEvent e) {
 				abraPaginaDeAutorizacao();
 			}
 		});
@@ -97,7 +114,7 @@ public class PainelLogin extends JPanel {
 		JLabel lblCodigo = new JLabel("Código");
 		LayoutManager border1 = new BorderLayout();
 		this.setLayout(border1);
-				
+
 		JPanel painelImagem = new JPanel();
 		JPanel meio = new JPanel();
 		JPanel inferiorr = new JPanel();
@@ -109,24 +126,23 @@ public class PainelLogin extends JPanel {
 		meio.add(textCodigo);
 		meio.add(botaoLogin);
 		inferiorr.add(lblGerarCodigo);
-		
+
 		this.add(painelImagem, BorderLayout.NORTH);
 		this.add(meio, BorderLayout.CENTER);
 		this.add(inferiorr, BorderLayout.SOUTH);
 	}
-	
+
 	private void login() {
-		try{
+		try {
 			twitterInterface.login(textCodigo.getText());
 			janelaPrincipal.mostre(Paineis.Tweets);
-		}
-		catch (TwitterException ex){
-			JOptionPane.showMessageDialog(this, "Código inválido",
-					"Código", JOptionPane.ERROR_MESSAGE);
-		}
-		catch (IllegalStateException exState) {
-			JOptionPane.showMessageDialog(this, "Gere o código antes de entrar",
-					"Gere código", JOptionPane.WARNING_MESSAGE);
+		} catch (TwitterException ex) {
+			JOptionPane.showMessageDialog(this, "Código inválido", "Código",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (IllegalStateException exState) {
+			JOptionPane.showMessageDialog(this,
+					"Gere o código antes de entrar", "Gere código",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -134,16 +150,13 @@ public class PainelLogin extends JPanel {
 		try {
 			twitterInterface.abrirPaginaDeAutorizacao();
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao abrir página de autorização");
+			JOptionPane.showMessageDialog(this,
+					"Erro ao abrir página de autorização");
 		} catch (ImpossivelAbrirBrowserException e) {
-			JOptionPane.showMessageDialog(this, "Favor acessar " + 
-					e.getUri() + "para gerar o código de autenticação", 
+			JOptionPane.showMessageDialog(this, "Favor acessar " + e.getUri()
+					+ "para gerar o código de autenticação",
 					"Gerar código", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	
+
 }
-
-
-	
-	
