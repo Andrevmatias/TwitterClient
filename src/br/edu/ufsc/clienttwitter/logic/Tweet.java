@@ -1,11 +1,14 @@
 package br.edu.ufsc.clienttwitter.logic;
 
+import twitter4j.UserMentionEntity;
+
 
 public class Tweet {
 	
 	private String mensagem;
 	private Autor autor;
 	private long Id;
+	private String replyTo;
 	
 	public String getMensagem() {
 		return mensagem;
@@ -28,5 +31,15 @@ public class Tweet {
 	}
 	public long getId(){
 		return this.Id;
+	}
+	public String getReplyTo() {
+		return "@" + this.getAutor().getNick() +" " + replyTo;
+	}
+	
+	public void setReplyTo(UserMentionEntity[] usuariosMencionados) {
+		replyTo = "";
+		for (int i = 0; i < usuariosMencionados.length; i++) {
+			replyTo+= "@" + " " + usuariosMencionados[i].getScreenName() +" ";
+		}
 	}
 }

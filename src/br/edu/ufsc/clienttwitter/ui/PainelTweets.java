@@ -33,6 +33,7 @@ public class PainelTweets extends JPanel {
 	private JList<Tweet> listaTweets;
 	private JPopupMenu popupListaTweets;
 	private JMenuItem itemRetwittar;
+	private JMenuItem itemReply;
 	
 	private JScrollPane paneTweets;
 	private JTextArea textTweet;
@@ -50,6 +51,7 @@ public class PainelTweets extends JPanel {
 	}
 
 	private void initComponents() {
+				
 		listaTweets = new JList<Tweet>(new DefaultListModel<Tweet>());
 		listaTweets.setCellRenderer(new TweetCellRenderer());
 		
@@ -63,7 +65,16 @@ public class PainelTweets extends JPanel {
 			}
 		});
         popupListaTweets.add(itemRetwittar);       
-       
+
+        itemReply = new JMenuItem("Reply");
+        itemReply.addActionListener( new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				replySelecionado();
+			}
+		});
+        popupListaTweets.add(itemReply);
+        
         listaTweets.addMouseListener(new MouseAdapter() {
         	@Override
             public void mousePressed(MouseEvent evt) {
@@ -94,7 +105,7 @@ public class PainelTweets extends JPanel {
 						carreguePagina(++paginaAtual);
 				}
 			});
-
+		
 		textTweet = new JTextArea(5, 10);
 		textTweet.setLineWrap(true);
 		textTweet.addKeyListener(new KeyAdapter() {
@@ -118,6 +129,14 @@ public class PainelTweets extends JPanel {
 					"O tweet pode ter, no máximo, 140 caracteres", 
 					"140 caracteres", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+
+
+	private void replySelecionado() {
+	  	Tweet tweet = listaTweets.getSelectedValue();
+	  	textTweet.setText(tweet.getReplyTo());
+	  	textTweet.requestFocus();
 	}
 	
 	private void retwitteSelecionado(){

@@ -81,12 +81,7 @@ public class PainelLogin extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
-					try {
-						twitterInterface.login(textCodigo.getText());
-						janelaPrincipal.mostre(Paineis.Tweets);
-					} catch (TwitterException ex) {
-						JOptionPane.showMessageDialog(null, "Código inválido");
-					}
+					login();
 			}
 		});
 

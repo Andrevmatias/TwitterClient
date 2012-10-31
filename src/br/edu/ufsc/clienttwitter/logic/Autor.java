@@ -6,7 +6,8 @@ public class Autor {
 	
 	private String nome;
 	private Icon foto;
-
+	private String nick;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -21,6 +22,14 @@ public class Autor {
 	
 	public void setFoto(Icon foto) {
 		this.foto = foto;
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
 }

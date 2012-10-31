@@ -17,6 +17,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
@@ -59,6 +60,7 @@ public class TwitterInterface {
 		tweet.setAutor(this.convertAutor(status.getUser()));
 		tweet.setMensagem(status.getText());
 		tweet.setId(status.getId());
+		tweet.setReplyTo(status.getUserMentionEntities());
 		return tweet;
 	}
 
@@ -66,6 +68,7 @@ public class TwitterInterface {
 		Autor autor = new Autor();
 		autor.setFoto(new ImageIcon(source.getProfileImageURL()));
 		autor.setNome(source.getName());
+		autor.setNick(source.getScreenName());
 		return autor;
 	}
 
