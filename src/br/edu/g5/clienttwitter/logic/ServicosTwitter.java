@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.logic;
+package br.edu.g5.clienttwitter.logic;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -9,26 +9,27 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
+import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
-public class TwitterInterface {
+public class ServicosTwitter {
 
 	private static final int TWEETS_POR_PAGINA = 20;
 	private Twitter twitterManager;
 	private RequestToken requestToken;
 
-	public TwitterInterface(Twitter twitterManager) {
-		this.twitterManager = twitterManager;
+	public ServicosTwitter() {
+		this.twitterManager = TwitterFactory.getSingleton();
 		this.twitterManager.setOAuthConsumer("2dcs3CVXhfMM1lWL2rUSdQ",
 				"Qi0HAa6dVB0O1XNM2u9hjxZih367dZ8mYS0NLw");
 	}

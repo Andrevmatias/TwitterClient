@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui;
+package br.edu.g5.clienttwitter.ui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -22,13 +22,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import twitter4j.TwitterException;
-import br.edu.ufsc.clienttwitter.logic.Tweet;
-import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
-import br.edu.ufsc.clienttwitter.ui.models.TweetCellRenderer;
+import br.edu.g5.clienttwitter.logic.Tweet;
+import br.edu.g5.clienttwitter.logic.ServicosTwitter;
+import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
 
 public class PainelTweets extends JPanel {
 
-	private TwitterInterface twitterInterface;
+	private ServicosTwitter twitterInterface;
 	
 	private JList<Tweet> listaTweets;
 	private JPopupMenu popupListaTweets;
@@ -40,7 +40,7 @@ public class PainelTweets extends JPanel {
 
 	private int paginaAtual = 1;
 
-	public PainelTweets(TwitterInterface twitterInterface) {
+	public PainelTweets(ServicosTwitter twitterInterface) {
 		super(new BorderLayout(3, 3));
 		this.twitterInterface = twitterInterface;
 

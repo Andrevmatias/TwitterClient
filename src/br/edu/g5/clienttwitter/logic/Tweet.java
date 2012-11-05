@@ -1,6 +1,5 @@
-package br.edu.ufsc.clienttwitter.logic;
+package br.edu.g5.clienttwitter.logic;
 
-import twitter4j.UserMentionEntity;
 
 
 public class Tweet {

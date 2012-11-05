@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.logic;
+package br.edu.g5.clienttwitter.logic;
 
 import javax.swing.Icon;
 

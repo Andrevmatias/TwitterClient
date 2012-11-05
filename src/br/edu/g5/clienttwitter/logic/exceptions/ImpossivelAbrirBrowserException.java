@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.logic.exceptions;
+package br.edu.g5.clienttwitter.logic.exceptions;
 
 public class ImpossivelAbrirBrowserException extends Exception {
 	private String uri;

@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui.models;
+package br.edu.g5.clienttwitter.ui.models;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,8 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import br.edu.ufsc.clienttwitter.logic.Tweet;
-import br.edu.ufsc.clienttwitter.ui.format.TweetFormatter;
+import br.edu.g5.clienttwitter.logic.Tweet;
+import br.edu.g5.clienttwitter.ui.format.TweetFormatter;
 
 public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet> {
 

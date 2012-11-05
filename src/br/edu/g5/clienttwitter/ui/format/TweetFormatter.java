@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui.format;
+package br.edu.g5.clienttwitter.ui.format;
 
 public class TweetFormatter {
 

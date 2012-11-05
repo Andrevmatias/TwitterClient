@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui;
+package br.edu.g5.clienttwitter.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,16 +24,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import twitter4j.TwitterException;
-import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
-import br.edu.ufsc.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
-import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
+import br.edu.g5.clienttwitter.logic.ServicosTwitter;
+import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
+import br.edu.g5.clienttwitter.ui.enums.Paineis;
 
 public class PainelLogin extends JPanel {
 
 	private static final String DICA_CODIGO = "Digite aqui seu código";
 	private static final String ENDERECO_IMAGEM_PASSARINHO = "http://www.essaseoutras.xpg.com.br/wp-content/uploads/2012/03/twitter-logo.jpg";
 	private static final String ENDERECO_IMAGEM_BOTAO_ENTRAR = "http://i.imgur.com/GOfpA.png";
-	private TwitterInterface twitterInterface;
+	private ServicosTwitter twitterInterface;
 	private JTextField textCodigo;
 	private JLabel imagem;
 	private JButton botaoLogin;
@@ -43,7 +43,7 @@ public class PainelLogin extends JPanel {
 	private GroupLayout layout = new GroupLayout(this);
 
 	public PainelLogin(JanelaPrincipal janelaPrincipal,
-			TwitterInterface twitterInterface) {
+			ServicosTwitter twitterInterface) {
 		this.twitterInterface = twitterInterface;
 		this.janelaPrincipal = janelaPrincipal;
 
@@ -130,7 +130,7 @@ public class PainelLogin extends JPanel {
 	private void login() {
 		try {
 			twitterInterface.login(textCodigo.getText());
-			janelaPrincipal.mostre(Paineis.Tweets);
+			janelaPrincipal.mostre(Paineis.TWEETS);
 		} catch (TwitterException ex) {
 			JOptionPane.showMessageDialog(this, "Código inválido", "Código",
 					JOptionPane.ERROR_MESSAGE);

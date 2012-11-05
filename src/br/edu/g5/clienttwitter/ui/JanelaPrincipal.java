@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui;
+package br.edu.g5.clienttwitter.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +8,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import br.edu.ufsc.clienttwitter.logic.TwitterInterface;
-import br.edu.ufsc.clienttwitter.ui.ajuda.JanelaAjuda;
-import br.edu.ufsc.clienttwitter.ui.enums.Paineis;
+import br.edu.g5.clienttwitter.logic.ServicosTwitter;
+import br.edu.g5.clienttwitter.ui.ajuda.JanelaAjuda;
+import br.edu.g5.clienttwitter.ui.enums.Paineis;
 
 public class JanelaPrincipal extends JFrame {
 
@@ -18,11 +18,11 @@ public class JanelaPrincipal extends JFrame {
 	private JMenu menu;
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
-	private TwitterInterface twitterInterface;
+	private ServicosTwitter twitterInterface;
 
 	private PainelLogin painelLogin;
 
-	public JanelaPrincipal(TwitterInterface twitterInterface) {
+	public JanelaPrincipal(ServicosTwitter twitterInterface) {
 		this.twitterInterface = twitterInterface;
 
 		setTitle("The Passarinho");
@@ -71,10 +71,10 @@ public class JanelaPrincipal extends JFrame {
 
 	public void mostre(Paineis tweets) {
 		switch (tweets) {
-		case Tweets:
+		case TWEETS:
 			this.setContentPane(new PainelTweets(twitterInterface));
 			break;
-		case Login:
+		case LOGIN:
 			this.setContentPane(new PainelLogin(this, twitterInterface));
 			break;
 		}

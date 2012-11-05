@@ -1,4 +1,4 @@
-package br.edu.ufsc.clienttwitter.ui.ajuda;
+package br.edu.g5.clienttwitter.ui.ajuda;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
