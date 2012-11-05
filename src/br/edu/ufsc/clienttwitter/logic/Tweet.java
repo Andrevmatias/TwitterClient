@@ -36,10 +36,7 @@ public class Tweet {
 		return "@" + this.getAutor().getNick() +" " + replyTo;
 	}
 	
-	public void setReplyTo(UserMentionEntity[] usuariosMencionados) {
-		replyTo = "";
-		for (int i = 0; i < usuariosMencionados.length; i++) {
-			replyTo+= "@" + " " + usuariosMencionados[i].getScreenName() +" ";
+	public void setReplyTo(String replyTo) {
+		this.replyTo = replyTo;
 		}
-	}
 }

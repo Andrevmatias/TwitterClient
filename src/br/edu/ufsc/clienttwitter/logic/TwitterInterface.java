@@ -60,8 +60,16 @@ public class TwitterInterface {
 		tweet.setAutor(this.convertAutor(status.getUser()));
 		tweet.setMensagem(status.getText());
 		tweet.setId(status.getId());
-		tweet.setReplyTo(status.getUserMentionEntities());
+		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
 		return tweet;
+	}
+
+	private String geraReplyTo(UserMentionEntity[] userMentionEntities) {
+		String replyTo ="";
+		for (int i = 0; i < userMentionEntities.length; i++) {
+			replyTo+= "@" + userMentionEntities[i].getScreenName() +" ";
+		}
+		return replyTo;		
 	}
 
 	private Autor convertAutor(User source) {
