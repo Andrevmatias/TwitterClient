@@ -5,7 +5,7 @@ package br.edu.g5.clienttwitter.logic;
 public class Tweet {
 	
 	private String mensagem;
-	private Autor autor;
+	private Usuario autor;
 	private long Id;
 	private String replyTo;
 	
@@ -18,10 +18,10 @@ public class Tweet {
 	public void setId(long Id){
 		this.Id = Id;
 	}
-	public Autor getAutor() {
+	public Usuario getAutor() {
 		return autor;
 	}
-	public void setAutor(Autor autor) {
+	public void setAutor(Usuario autor) {
 		this.autor = autor;
 	}
 	@Override

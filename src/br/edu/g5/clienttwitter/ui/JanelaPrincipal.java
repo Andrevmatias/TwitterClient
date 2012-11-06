@@ -18,12 +18,13 @@ public class JanelaPrincipal extends JFrame {
 	private JMenu menu;
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
-	private ServicosTwitter twitterInterface;
+	private ServicosTwitter servicosTwiter;
 
 	private PainelLogin painelLogin;
+	private JMenuItem menuItemPesquisaUsuarios;
 
 	public JanelaPrincipal(ServicosTwitter twitterInterface) {
-		this.twitterInterface = twitterInterface;
+		this.servicosTwiter = twitterInterface;
 
 		setTitle("The Passarinho");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,11 +38,18 @@ public class JanelaPrincipal extends JFrame {
 	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
+		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usuários");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
 
+		menuItemPesquisaUsuarios.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mostre(Paineis.PESQUISA_USUARIOS);
+			}
+		});
+		
 		menuItemAjuda.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JanelaAjuda janela = new JanelaAjuda();
@@ -50,18 +58,19 @@ public class JanelaPrincipal extends JFrame {
 		});
 		
 		menuItemSair.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(ABORT);
 			}
 		});
+		
+		menu.add(menuItemPesquisaUsuarios);
 		menu.add(menuItemAjuda);
 		menu.add(menuItemSair);
 		barra.add(menu);
 		setJMenuBar(barra);
 		
-		painelLogin = new PainelLogin(this, twitterInterface);
+		painelLogin = new PainelLogin(this, servicosTwiter);
 		this.setContentPane(painelLogin);
 	}
 
@@ -72,10 +81,16 @@ public class JanelaPrincipal extends JFrame {
 	public void mostre(Paineis tweets) {
 		switch (tweets) {
 		case TWEETS:
-			this.setContentPane(new PainelTweets(twitterInterface));
+			this.setContentPane(new PainelTweets(servicosTwiter));
 			break;
 		case LOGIN:
-			this.setContentPane(new PainelLogin(this, twitterInterface));
+			this.setContentPane(new PainelLogin(this, servicosTwiter));
+			break;
+		case PESQUISA_TWEETS:
+			this.setContentPane(new PainelPesquisaTweets(servicosTwiter));
+			break;
+		case PESQUISA_USUARIOS:
+			this.setContentPane(new PainelPesquisaUsuarios(servicosTwiter));
 			break;
 		}
 		pack();

@@ -9,8 +9,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
-
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -21,6 +19,7 @@ import twitter4j.User;
 import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 
 public class ServicosTwitter {
 
@@ -58,7 +57,7 @@ public class ServicosTwitter {
 
 	private Tweet convertTweet(Status status) {
 		Tweet tweet = new Tweet();
-		tweet.setAutor(this.convertAutor(status.getUser()));
+		tweet.setAutor(this.convertUsuario(status.getUser()));
 		tweet.setMensagem(status.getText());
 		tweet.setId(status.getId());
 		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
@@ -73,8 +72,8 @@ public class ServicosTwitter {
 		return replyTo;		
 	}
 
-	private Autor convertAutor(User source) {
-		Autor autor = new Autor();
+	private Usuario convertUsuario(User source) {
+		Usuario autor = new Usuario();
 		autor.setFoto(new ImageIcon(source.getProfileImageURL()));
 		autor.setNome(source.getName());
 		autor.setNick(source.getScreenName());
@@ -101,6 +100,17 @@ public class ServicosTwitter {
 	
 	public void retwittar(long idTweet) throws TwitterException{
 		twitterManager.retweetStatus(idTweet);
+	}
+
+	public Usuario[] pesquisarUsuarios(String argumento) throws TwitterException {
+		ResponseList<User> usuarios = 
+				twitterManager.searchUsers(argumento, 1);
+		
+		List<Usuario> usuariosModel = new ArrayList<Usuario>();
+		for(User usuario : usuarios)
+			usuariosModel.add(convertUsuario(usuario));
+		
+		return usuariosModel.toArray(new Usuario[0]);
 	}
 
 }

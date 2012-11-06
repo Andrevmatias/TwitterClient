@@ -2,7 +2,7 @@ package br.edu.g5.clienttwitter.logic;
 
 import javax.swing.Icon;
 
-public class Autor {
+public class Usuario {
 	
 	private String nome;
 	private Icon foto;
