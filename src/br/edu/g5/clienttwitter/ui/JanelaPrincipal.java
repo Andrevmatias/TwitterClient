@@ -22,6 +22,7 @@ public class JanelaPrincipal extends JFrame {
 
 	private PainelLogin painelLogin;
 	private JMenuItem menuItemPesquisaUsuarios;
+	private JMenuItem menuItemPesquisaTweets;
 
 	public JanelaPrincipal(ServicosTwitter twitterInterface) {
 		this.servicosTwiter = twitterInterface;
@@ -38,10 +39,20 @@ public class JanelaPrincipal extends JFrame {
 	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
+		menuItemPesquisaTweets = new JMenuItem("Pesquisar Tweets");
 		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usuários");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
 
+		menuItemPesquisaTweets.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mostre(Paineis.PESQUISA_TWEETS);
+				
+			}
+		});
+		
 		menuItemPesquisaUsuarios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -64,6 +75,7 @@ public class JanelaPrincipal extends JFrame {
 			}
 		});
 		
+		menu.add(menuItemPesquisaTweets);
 		menu.add(menuItemPesquisaUsuarios);
 		menu.add(menuItemAjuda);
 		menu.add(menuItemSair);

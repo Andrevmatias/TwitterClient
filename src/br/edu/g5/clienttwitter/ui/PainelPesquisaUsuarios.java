@@ -14,7 +14,7 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 	private ServicosTwitter servicosTwitter;
 
 	public PainelPesquisaUsuarios(ServicosTwitter servicosTwiter) {
-		super();
+		super("Nomes");
 		this.servicosTwitter = servicosTwiter;
 	}
 

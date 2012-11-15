@@ -1,7 +1,11 @@
 package br.edu.g5.clienttwitter.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,29 +19,51 @@ public abstract class PainelPesquisa<T> extends JPanel {
 	private JButton btnPesquisar;
 	private JTextField textArgumento;
 	private JList<T> listPesquisa;
+	private JLabel jlbtipoDePesquisa;
+	private JanelaPrincipal janelaPrincipal;
+
 	
-	protected PainelPesquisa() {
-		initComponents();
+	protected PainelPesquisa(String tipoDePesquisa) {
+		initComponents(tipoDePesquisa);
+		posicionaComponentes();
 	}
 	
-	private void initComponents() {
-		this.add(new JLabel("Nome"));
+	private void posicionaComponentes() {
+		this.setLayout(new BorderLayout());
+		JPanel painelPesquisa = new JPanel();
+		painelPesquisa.add(jlbtipoDePesquisa);
+		painelPesquisa.add(textArgumento);
+		painelPesquisa.add(btnPesquisar);
+		this.add(painelPesquisa, BorderLayout.NORTH);
+		this.add(listPesquisa, BorderLayout.CENTER);
+	}
+
+	private void initComponents(String tipoDePesquisa) {
+		jlbtipoDePesquisa = new JLabel(tipoDePesquisa);
+		this.setBackground(Color.WHITE);
 		
-		textArgumento = new JTextField();
-		this.add(textArgumento);
+		textArgumento = new JTextField(10);
+		textArgumento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					pesquisar(textArgumento.getText());
+					janelaPrincipal.pack();
+			}
+		});
+
 		
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pesquisar(textArgumento.getText());
+				janelaPrincipal.pack();
 			}
 		});
-		this.add(btnPesquisar);
 		
 		listPesquisa = new JList<T>();
 		listPesquisa.setCellRenderer(getCellRenderer());
-		this.add(listPesquisa);
 	}
 	
 	protected JList<T> getJList(){

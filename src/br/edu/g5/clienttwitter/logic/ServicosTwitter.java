@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import twitter4j.Paging;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -113,4 +116,28 @@ public class ServicosTwitter {
 		return usuariosModel.toArray(new Usuario[0]);
 	}
 
+
+	public Tweet[] pesquisarTweets(String Argumento) throws TwitterException{
+		Query query = new Query(Argumento);
+	    QueryResult resultado;
+	    List<Tweet> tweets1 = new ArrayList<Tweet>();	    
+	    resultado = twitterManager.search(query);
+		 
+		    for(int i=0; i < resultado.getTweets().size(); i++){
+		    	Tweet tweet1 = new Tweet();
+		    	tweet1.setMensagem(resultado.getTweets().get(i).getText());
+		    	tweet1.setId(resultado.getTweets().get(i).getId());
+		    	tweet1.setReplyTo(this.geraReplyTo(resultado.getTweets().get(i).getUserMentionEntities()));
+		    	Usuario autor = new Usuario();
+		    	autor.setFoto(new ImageIcon(resultado.getTweets().get(i).getProfileImageUrl())); //rever
+		    	autor.setNick(""); //rever
+		    	autor.setNick(""); //rever
+		    	tweet1.setAutor(autor);
+		    	tweets1.add(tweet1);
+		    }
+	
+	    return tweets1.toArray(new Tweet[0]);
+
+	}
+	
 }
