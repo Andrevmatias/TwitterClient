@@ -64,6 +64,14 @@ public class PainelAjuda extends JScrollPane{
 			.append("</p>")
 			
 			.append("<p>")
+			.append("<h2>Como Reply</h2>")
+			.append("Para retwittar basta clicar com o bot√£o direito " +
+					"do mouse no tweet desejado e selecionar a " +
+					"op√ß√£o 'Reply'." +
+					"ApÛs isso vocÍ ser· redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
+			.append("</p>")
+			
+			.append("<p>")
 			.append("<h2>Lista de Tweets</h2>")
 			.append("Caso deseje ver tweets antigos basta rolar o scroll " +
 					"do painel de tweets at√© o fim e seus tweets antigos " +
