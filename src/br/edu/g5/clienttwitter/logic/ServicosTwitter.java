@@ -134,6 +134,7 @@ public class ServicosTwitter {
 		    	autor.setNick(""); //rever
 		    	tweet1.setAutor(autor);
 		    	tweets1.add(tweet1);
+		    	
 		    }
 	
 	    return tweets1.toArray(new Tweet[0]);

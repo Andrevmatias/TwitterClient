@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
@@ -31,11 +32,12 @@ public abstract class PainelPesquisa<T> extends JPanel {
 	private void posicionaComponentes() {
 		this.setLayout(new BorderLayout());
 		JPanel painelPesquisa = new JPanel();
+		JScrollPane painelResultado = new JScrollPane(listPesquisa);
 		painelPesquisa.add(jlbtipoDePesquisa);
 		painelPesquisa.add(textArgumento);
 		painelPesquisa.add(btnPesquisar);
 		this.add(painelPesquisa, BorderLayout.NORTH);
-		this.add(listPesquisa, BorderLayout.CENTER);
+		this.add(painelResultado, BorderLayout.CENTER);
 	}
 
 	private void initComponents(String tipoDePesquisa) {
@@ -48,7 +50,6 @@ public abstract class PainelPesquisa<T> extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 					pesquisar(textArgumento.getText());
-					janelaPrincipal.pack();
 			}
 		});
 
@@ -58,7 +59,6 @@ public abstract class PainelPesquisa<T> extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pesquisar(textArgumento.getText());
-				janelaPrincipal.pack();
 			}
 		});
 		

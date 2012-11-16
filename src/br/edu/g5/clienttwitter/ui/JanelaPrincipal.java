@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu.Separator;
 
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.ui.ajuda.JanelaAjuda;
@@ -19,10 +20,11 @@ public class JanelaPrincipal extends JFrame {
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
 	private ServicosTwitter servicosTwiter;
-
+	private boolean logado;
 	private PainelLogin painelLogin;
 	private JMenuItem menuItemPesquisaUsuarios;
 	private JMenuItem menuItemPesquisaTweets;
+	private JMenuItem menuItemPaginaInicial;
 
 	public JanelaPrincipal(ServicosTwitter twitterInterface) {
 		this.servicosTwiter = twitterInterface;
@@ -39,11 +41,24 @@ public class JanelaPrincipal extends JFrame {
 	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
+		menuItemPaginaInicial = new JMenuItem("P·gina Inicial");
 		menuItemPesquisaTweets = new JMenuItem("Pesquisar Tweets");
 		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usu√°rios");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
 
+		menuItemPaginaInicial.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(logado = true){
+					mostre(Paineis.TWEETS);
+				}
+				else {mostre(Paineis.LOGIN);
+				}
+			}
+		});
+		
 		menuItemPesquisaTweets.addActionListener(new ActionListener() {
 			
 			@Override
@@ -75,9 +90,13 @@ public class JanelaPrincipal extends JFrame {
 			}
 		});
 		
+		menu.add(menuItemPaginaInicial);
+		menu.addSeparator();
 		menu.add(menuItemPesquisaTweets);
 		menu.add(menuItemPesquisaUsuarios);
+		menu.addSeparator();
 		menu.add(menuItemAjuda);
+		menu.addSeparator();
 		menu.add(menuItemSair);
 		barra.add(menu);
 		setJMenuBar(barra);
@@ -94,9 +113,11 @@ public class JanelaPrincipal extends JFrame {
 		switch (tweets) {
 		case TWEETS:
 			this.setContentPane(new PainelTweets(servicosTwiter));
+			logado = true;
 			break;
 		case LOGIN:
 			this.setContentPane(new PainelLogin(this, servicosTwiter));
+			logado = false;
 			break;
 		case PESQUISA_TWEETS:
 			this.setContentPane(new PainelPesquisaTweets(servicosTwiter));
