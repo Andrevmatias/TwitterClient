@@ -16,6 +16,7 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 	public PainelPesquisaUsuarios(ServicosTwitter servicosTwiter) {
 		super("Nomes");
 		this.servicosTwitter = servicosTwiter;
+		this.setSize(100, 300);
 	}
 
 	@Override

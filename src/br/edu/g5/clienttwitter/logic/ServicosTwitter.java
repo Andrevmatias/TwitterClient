@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 import twitter4j.Paging;
 import twitter4j.Query;
@@ -65,6 +64,27 @@ public class ServicosTwitter {
 		tweet.setId(status.getId());
 		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
 		return tweet;
+	}
+	
+	private Tweet convertTweet(twitter4j.Tweet tweet) {
+		Tweet tweetModel = new Tweet();
+		tweetModel.setId(tweet.getId());
+		tweetModel.setMensagem(tweet.getText());
+		tweetModel.setReplyTo(geraReplyTo(tweet.getUserMentionEntities()));
+		
+		tweetModel.setAutor(convertUsuario(tweet));
+		
+		return tweetModel;
+	}
+
+	private Usuario convertUsuario(twitter4j.Tweet tweet) {
+		Usuario usuario = new Usuario();
+		
+		usuario.setFoto(new ImageIcon(tweet.getProfileImageUrl()));
+		usuario.setNick(tweet.getFromUser());
+		usuario.setNome(tweet.getFromUserName());
+		
+		return usuario;
 	}
 
 	private String geraReplyTo(UserMentionEntity[] userMentionEntities) {
@@ -123,22 +143,12 @@ public class ServicosTwitter {
 	    List<Tweet> tweets1 = new ArrayList<Tweet>();	    
 	    resultado = twitterManager.search(query);
 		 
-		    for(int i=0; i < resultado.getTweets().size(); i++){
-		    	Tweet tweet1 = new Tweet();
-		    	tweet1.setMensagem(resultado.getTweets().get(i).getText());
-		    	tweet1.setId(resultado.getTweets().get(i).getId());
-		    	tweet1.setReplyTo(this.geraReplyTo(resultado.getTweets().get(i).getUserMentionEntities()));
-		    	Usuario autor = new Usuario();
-		    	autor.setFoto(new ImageIcon(resultado.getTweets().get(i).getProfileImageUrl())); //rever
-		    	autor.setNick(""); //rever
-		    	autor.setNick(""); //rever
-		    	tweet1.setAutor(autor);
-		    	tweets1.add(tweet1);
-		    	
-		    }
-	
-	    return tweets1.toArray(new Tweet[0]);
+	    for(twitter4j.Tweet tweet : resultado.getTweets()){
+	    	Tweet tweet1 = convertTweet(tweet);
+	    	tweets1.add(tweet1);
+	    }
 
+	    return tweets1.toArray(new Tweet[0]);
 	}
 	
 }

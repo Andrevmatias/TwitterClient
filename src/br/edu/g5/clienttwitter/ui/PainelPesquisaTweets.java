@@ -4,11 +4,9 @@ import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
 import twitter4j.TwitterException;
-
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Tweet;
 import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
-import br.edu.g5.clienttwitter.ui.models.UsuarioCellRenderer;
 
 public class PainelPesquisaTweets extends PainelPesquisa<Tweet> {
 
@@ -17,6 +15,7 @@ public class PainelPesquisaTweets extends PainelPesquisa<Tweet> {
 	public PainelPesquisaTweets(ServicosTwitter servicosTwiter) {
 		super("Tweet");
 		this.servicosTwitter = servicosTwiter;
+		this.setSize(100, 300);
 	}
 
 	@Override

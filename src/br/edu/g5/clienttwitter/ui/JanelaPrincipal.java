@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu.Separator;
 
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.ui.ajuda.JanelaAjuda;
@@ -20,7 +19,6 @@ public class JanelaPrincipal extends JFrame {
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
 	private ServicosTwitter servicosTwiter;
-	private boolean logado;
 	private PainelLogin painelLogin;
 	private JMenuItem menuItemPesquisaUsuarios;
 	private JMenuItem menuItemPesquisaTweets;
@@ -41,30 +39,28 @@ public class JanelaPrincipal extends JFrame {
 	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
-		menuItemPaginaInicial = new JMenuItem("Página Inicial");
+		menuItemPaginaInicial = new JMenuItem("Pï¿½gina Inicial");
 		menuItemPesquisaTweets = new JMenuItem("Pesquisar Tweets");
 		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usuÃ¡rios");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
+		
+		menuItemPaginaInicial.setEnabled(false);
+		menuItemPesquisaTweets.setEnabled(false);
+		menuItemPesquisaUsuarios.setEnabled(false);
 
 		menuItemPaginaInicial.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(logado = true){
-					mostre(Paineis.TWEETS);
-				}
-				else {mostre(Paineis.LOGIN);
-				}
+				mostre(Paineis.TWEETS);
 			}
 		});
 		
 		menuItemPesquisaTweets.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mostre(Paineis.PESQUISA_TWEETS);
-				
 			}
 		});
 		
@@ -113,11 +109,9 @@ public class JanelaPrincipal extends JFrame {
 		switch (tweets) {
 		case TWEETS:
 			this.setContentPane(new PainelTweets(servicosTwiter));
-			logado = true;
 			break;
 		case LOGIN:
 			this.setContentPane(new PainelLogin(this, servicosTwiter));
-			logado = false;
 			break;
 		case PESQUISA_TWEETS:
 			this.setContentPane(new PainelPesquisaTweets(servicosTwiter));
@@ -128,5 +122,11 @@ public class JanelaPrincipal extends JFrame {
 		}
 		pack();
 		setLocationRelativeTo(null);
+	}
+
+	public void habiliteMenus() {
+		menuItemPaginaInicial.setEnabled(true);
+		menuItemPesquisaTweets.setEnabled(true);
+		menuItemPesquisaUsuarios.setEnabled(true);
 	}
 }

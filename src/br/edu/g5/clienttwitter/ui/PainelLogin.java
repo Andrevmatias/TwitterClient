@@ -130,6 +130,7 @@ public class PainelLogin extends JPanel {
 	private void login() {
 		try {
 			twitterInterface.login(textCodigo.getText());
+			janelaPrincipal.habiliteMenus();
 			janelaPrincipal.mostre(Paineis.TWEETS);
 		} catch (TwitterException ex) {
 			JOptionPane.showMessageDialog(this, "Código inválido", "Código",

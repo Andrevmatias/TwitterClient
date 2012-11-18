@@ -21,7 +21,6 @@ public abstract class PainelPesquisa<T> extends JPanel {
 	private JTextField textArgumento;
 	private JList<T> listPesquisa;
 	private JLabel jlbtipoDePesquisa;
-	private JanelaPrincipal janelaPrincipal;
 
 	
 	protected PainelPesquisa(String tipoDePesquisa) {

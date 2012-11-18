@@ -33,7 +33,7 @@ public class PainelSobre extends JScrollPane{
 			
 			.append("<h1>Sobre</h1>")
 			
-			.append("<h4>Versão: 1.0</h4>")
+			.append("<h4>Versão: 2.0</h4>")
 			
 			.append("<h4>Criadores</h4>")
 			.append("<ul>")

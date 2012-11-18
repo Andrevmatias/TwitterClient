@@ -64,18 +64,37 @@ public class PainelAjuda extends JScrollPane{
 			.append("</p>")
 			
 			.append("<p>")
-			.append("<h2>Como Reply</h2>")
-			.append("Para retwittar basta clicar com o botão direito " +
-					"do mouse no tweet desejado e selecionar a " +
-					"opção 'Reply'." +
-					"Ap�s isso voc� ser� redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
-			.append("</p>")
-			
-			.append("<p>")
 			.append("<h2>Lista de Tweets</h2>")
 			.append("Caso deseje ver tweets antigos basta rolar o scroll " +
 					"do painel de tweets até o fim e seus tweets antigos " +
 					"irão ser carregados.")
+			.append("</p>")
+			
+			.append("<br/>")
+			.append("<hr/>")
+			
+			.append("<p>")
+			.append("<h2>Como Responder</h2>")
+			.append("Para retwittar basta clicar com o botão direito " +
+					"do mouse no tweet desejado e selecionar a " +
+					"opção 'Reply'." +
+					"Ap�s isso voc� ser� redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
+			.append("</p>")
+			
+			.append("<p>")
+			.append("<h2>Como pesquisar usuários</h2>")
+			.append("Para pesquisar por usuários do Twitter, use o menu" +
+					"superior e clique em \"Pesquisar usuários\", digite " +
+					"o nome, parte dele, na caixa de pesquisa e clique em " +
+					"\"Pesquisar\".")
+			.append("</p>")
+			
+			.append("<p>")
+			.append("<h2>Como pesquisar tweets</h2>")
+			.append("Para pesquisar por tweets, use o menu superior" +
+					"e clique em \"Pesquisar Tweets\", digite a palavra" +
+					"ou frase que você deseja pesquisar na caixa de pesquisa" +
+					"e clique em \"Pesquisar\".")
 			.append("</p>")
 			
 			.append("</div>");
