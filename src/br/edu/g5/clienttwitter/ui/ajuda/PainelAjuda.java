@@ -80,15 +80,7 @@ public class PainelAjuda extends JScrollPane{
 					"opção 'Reply'." +
 					"Ap�s isso voc� ser� redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
 			.append("</p>")
-			
-			.append("<p>")
-			.append("<h2>Como pesquisar usuários</h2>")
-			.append("Para pesquisar por usuários do Twitter, use o menu" +
-					"superior e clique em \"Pesquisar usuários\", digite " +
-					"o nome, parte dele, na caixa de pesquisa e clique em " +
-					"\"Pesquisar\".")
-			.append("</p>")
-			
+
 			.append("<p>")
 			.append("<h2>Como pesquisar tweets</h2>")
 			.append("Para pesquisar por tweets, use o menu superior" +
@@ -97,6 +89,20 @@ public class PainelAjuda extends JScrollPane{
 					"e clique em \"Pesquisar\".")
 			.append("</p>")
 			
+			.append("<p>")
+			.append("<h2>Como pesquisar usuários</h2>")
+			.append("Para pesquisar por usuários do Twitter, use o menu" +
+					"superior e clique em \"Pesquisar usuários\", digite " +
+					"o nome, parte dele, na caixa de pesquisa e clique em " +
+					"\"Pesquisar\".")
+			.append("</p>")
+						
+			.append("<p>")
+			.append("<h2>Como seguir usuários</h2>")
+			.append("Ap�s pesquisar por usuarios, clique no usu�rio desejado " +
+					"e em seguida clique em \"sim\"")
+			.append("</p>")
+						
 			.append("</div>");
 		
 		return builderAjuda.toString();
