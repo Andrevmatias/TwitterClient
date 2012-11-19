@@ -7,6 +7,7 @@ public class Usuario {
 	private String nome;
 	private Icon foto;
 	private String nick;
+	private long id;
 	
 	public String getNome() {
 		return nome;
@@ -30,6 +31,14 @@ public class Usuario {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

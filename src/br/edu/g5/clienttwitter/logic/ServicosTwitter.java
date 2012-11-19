@@ -100,6 +100,7 @@ public class ServicosTwitter {
 		autor.setFoto(new ImageIcon(source.getProfileImageURL()));
 		autor.setNome(source.getName());
 		autor.setNick(source.getScreenName());
+		autor.setId(source.getId());
 		return autor;
 	}
 
@@ -150,5 +151,9 @@ public class ServicosTwitter {
 
 	    return tweets1.toArray(new Tweet[0]);
 	}
-	
+
+	public void seguir(long id) throws TwitterException {
+		twitterManager.createFriendship(id);
+			
+	}
 }
