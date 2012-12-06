@@ -23,6 +23,7 @@ public class JanelaPrincipal extends JFrame {
 	private JMenuItem menuItemPesquisaUsuarios;
 	private JMenuItem menuItemPesquisaTweets;
 	private JMenuItem menuItemPaginaInicial;
+	private JMenuItem menuItemSeguidores;
 
 	public JanelaPrincipal(ServicosTwitter twitterInterface) {
 		this.servicosTwiter = twitterInterface;
@@ -42,12 +43,14 @@ public class JanelaPrincipal extends JFrame {
 		menuItemPaginaInicial = new JMenuItem("Página Inicial");
 		menuItemPesquisaTweets = new JMenuItem("Pesquisar Tweets");
 		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usuários");
+		menuItemSeguidores = new JMenuItem("Meus seguidores");
 		menuItemAjuda = new JMenuItem("Ajuda");
 		menuItemSair = new JMenuItem("Sair");
 		
 		menuItemPaginaInicial.setEnabled(false);
 		menuItemPesquisaTweets.setEnabled(false);
 		menuItemPesquisaUsuarios.setEnabled(false);
+		menuItemSeguidores.setEnabled(false);
 
 		menuItemPaginaInicial.addActionListener(new ActionListener() {
 			
@@ -79,6 +82,13 @@ public class JanelaPrincipal extends JFrame {
 			}
 		});
 		
+		menuItemSeguidores.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mostre(Paineis.MEUS_SEGUIDORES);
+			}
+		});
+		
 		menuItemSair.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,6 +100,8 @@ public class JanelaPrincipal extends JFrame {
 		menu.addSeparator();
 		menu.add(menuItemPesquisaTweets);
 		menu.add(menuItemPesquisaUsuarios);
+		menu.addSeparator();
+		menu.add(menuItemSeguidores);
 		menu.addSeparator();
 		menu.add(menuItemAjuda);
 		menu.addSeparator();
@@ -119,6 +131,9 @@ public class JanelaPrincipal extends JFrame {
 		case PESQUISA_USUARIOS:
 			this.setContentPane(new PainelPesquisaUsuarios(servicosTwiter));
 			break;
+		case MEUS_SEGUIDORES:
+			this.setContentPane(new PainelMeusSeguidores(servicosTwiter));
+			break;
 		}
 		pack();
 		setLocationRelativeTo(null);
@@ -128,5 +143,6 @@ public class JanelaPrincipal extends JFrame {
 		menuItemPaginaInicial.setEnabled(true);
 		menuItemPesquisaTweets.setEnabled(true);
 		menuItemPesquisaUsuarios.setEnabled(true);
+		menuItemSeguidores.setEnabled(true);
 	}
 }

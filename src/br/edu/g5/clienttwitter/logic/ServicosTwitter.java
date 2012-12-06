@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -71,28 +72,6 @@ public class ServicosTwitter {
 		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
 		return tweet;
 	}
-	
-	private Tweet convertTweet(twitter4j.Tweet tweet) {
-		Tweet tweetModel = new Tweet();
-		tweetModel.setId(tweet.getId());
-		tweetModel.setMensagem(tweet.getText());
-		tweetModel.setDataDeCriacao(tweet.getCreatedAt());
-		tweetModel.setReplyTo(geraReplyTo(tweet.getUserMentionEntities()));
-		
-		tweetModel.setAutor(convertUsuario(tweet));
-		
-		return tweetModel;
-	}
-
-	private Usuario convertUsuario(twitter4j.Tweet tweet) {
-		Usuario usuario = new Usuario();
-		
-		usuario.setFoto(new ImageIcon(tweet.getProfileImageUrl()));
-		usuario.setNick(tweet.getFromUser());
-		usuario.setNome(tweet.getFromUserName());
-		
-		return usuario;
-	}
 
 	private String geraReplyTo(UserMentionEntity[] userMentionEntities) {
 		StringBuilder replyTo = new StringBuilder();
@@ -151,7 +130,7 @@ public class ServicosTwitter {
 	    List<Tweet> tweets = new LinkedList<Tweet>();	    
 	    resultado = twitterManager.search(query);
 		 
-	    for(twitter4j.Tweet tweet : resultado.getTweets()){
+	    for(Status tweet : resultado.getTweets()){
 	    	Tweet tweetModel = convertTweet(tweet);
 	    	tweets.add(tweetModel);
 	    }
@@ -162,5 +141,16 @@ public class ServicosTwitter {
 	public void seguir(long id) throws TwitterException {
 		twitterManager.createFriendship(id);
 			
+	}
+
+	public List<Usuario> getSeguidores(int numPagina) throws IllegalStateException, TwitterException {
+		List<Usuario> seguidores = new LinkedList<>();
+		PagableResponseList<User> response = 
+				twitterManager.getFollowersList(twitterManager.getId(), -1);
+		
+		for(User seguidor : response)
+			seguidores.add(convertUsuario(seguidor));
+		
+		return seguidores;
 	}
 }
