@@ -99,7 +99,7 @@ public class PainelAjuda extends JScrollPane{
 						
 			.append("<p>")
 			.append("<h2>Como seguir usu√°rios</h2>")
-			.append("ApÛs pesquisar por usuarios, clique no usu·rio desejado " +
+			.append("Ap√≥s pesquisar por usuarios, clique no usu√°rio desejado " +
 					"e em seguida clique em \"sim\"")
 			.append("</p>")
 						

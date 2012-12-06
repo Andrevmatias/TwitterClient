@@ -1,5 +1,7 @@
 package br.edu.g5.clienttwitter.ui;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
@@ -20,10 +22,10 @@ public class PainelPesquisaTweets extends PainelPesquisa<Tweet> {
 
 	@Override
 	protected void pesquisar(String argumento) {
-		Tweet[] tweets;
+		List<Tweet> tweets;
 		try {
 			tweets = servicosTwitter.pesquisarTweets(argumento);
-			this.getJList().setListData(tweets);
+			this.getJList().setListData(tweets.toArray(new Tweet[0]));
 		} catch (TwitterException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao pesquisar Tweets", 
 					"Pesquisar Tweets", JOptionPane.ERROR_MESSAGE);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -23,6 +24,10 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 
+/* FIXME Esta classe está fazendo pelo menos dois serviços bem distintos: autenticação e as outras funcionalidades.
+ * reorganizem o código de modo que ServicoesTwitter se utilize de um objeto especializado em fazer autenticação.
+ * O único objetivo é tornar mais fácil a manutenção do software. Não se trata, portanto, de erro.
+ */ 
 public class ServicosTwitter {
 
 	private static final int TWEETS_POR_PAGINA = 20;
@@ -88,11 +93,11 @@ public class ServicosTwitter {
 	}
 
 	private String geraReplyTo(UserMentionEntity[] userMentionEntities) {
-		String replyTo ="";
+		StringBuilder replyTo = new StringBuilder();
 		for (int i = 0; i < userMentionEntities.length; i++) {
-			replyTo+= "@" + userMentionEntities[i].getScreenName() +" ";
+			replyTo.append("@" + userMentionEntities[i].getScreenName() +" ");
 		}
-		return replyTo;		
+		return replyTo.toString();		
 	}
 
 	private Usuario convertUsuario(User source) {
@@ -138,18 +143,18 @@ public class ServicosTwitter {
 	}
 
 
-	public Tweet[] pesquisarTweets(String Argumento) throws TwitterException{
+	public List<Tweet> pesquisarTweets(String Argumento) throws TwitterException{
 		Query query = new Query(Argumento);
 	    QueryResult resultado;
-	    List<Tweet> tweets1 = new ArrayList<Tweet>();	    
+	    List<Tweet> tweets = new LinkedList<Tweet>();	    
 	    resultado = twitterManager.search(query);
 		 
 	    for(twitter4j.Tweet tweet : resultado.getTweets()){
-	    	Tweet tweet1 = convertTweet(tweet);
-	    	tweets1.add(tweet1);
+	    	Tweet tweetModel = convertTweet(tweet);
+	    	tweets.add(tweetModel);
 	    }
 
-	    return tweets1.toArray(new Tweet[0]);
+	    return tweets;
 	}
 
 	public void seguir(long id) throws TwitterException {

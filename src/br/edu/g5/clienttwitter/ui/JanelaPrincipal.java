@@ -39,7 +39,7 @@ public class JanelaPrincipal extends JFrame {
 	private void initComponents() {
 		barra = new JMenuBar();
 		menu = new JMenu("Menu");
-		menuItemPaginaInicial = new JMenuItem("P�gina Inicial");
+		menuItemPaginaInicial = new JMenuItem("Página Inicial");
 		menuItemPesquisaTweets = new JMenuItem("Pesquisar Tweets");
 		menuItemPesquisaUsuarios = new JMenuItem("Pesquisar usuários");
 		menuItemAjuda = new JMenuItem("Ajuda");

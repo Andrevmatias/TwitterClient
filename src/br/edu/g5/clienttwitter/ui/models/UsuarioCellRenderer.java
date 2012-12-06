@@ -3,10 +3,7 @@ package br.edu.g5.clienttwitter.ui.models;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,13 +19,11 @@ public class UsuarioCellRenderer extends JPanel implements
 	private static final Color COR_NORMAL = new Color(255, 255, 255);
 
 	private BorderLayout layout = new BorderLayout(5, 5);
-	private ServicosTwitter servicosTwitter;
 
 	private JLabel foto;
 	private JLabel nome;
 	
 	public UsuarioCellRenderer(ServicosTwitter servicosTwitter) {
-		this.servicosTwitter = servicosTwitter;
 		this.setLayout(layout);
 		initComponents();
 	}
