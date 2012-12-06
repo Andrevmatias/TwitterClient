@@ -1,5 +1,8 @@
 package br.edu.g5.clienttwitter.logic;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 
 public class Tweet {
@@ -8,6 +11,11 @@ public class Tweet {
 	private Usuario autor;
 	private long Id;
 	private String replyTo;
+	private Calendar dataDeCriacao;
+	
+	public Tweet(){
+		this.dataDeCriacao = Calendar.getInstance();
+	}
 	
 	public String getMensagem() {
 		return mensagem;
@@ -37,5 +45,13 @@ public class Tweet {
 	
 	public void setReplyTo(String replyTo) {
 		this.replyTo = replyTo;
-		}
+	}
+	
+	public Calendar getDataDeCriacao() {
+		return dataDeCriacao;
+	}
+
+	public void setDataDeCriacao(Date criadoEm) {
+		this.dataDeCriacao.setTime(criadoEm);
+	}
 }

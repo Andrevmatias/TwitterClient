@@ -26,6 +26,7 @@ public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet>
 	private JLabel lblFoto;
 	private JEditorPane txtTweet;
 	private JLabel lblAutor;
+	private JLabel lblTempo;
 	
 	public TweetCellRenderer() {
 		this.setSize(500, 100);
@@ -44,6 +45,10 @@ public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet>
 		lblAutor = new JLabel();
 		this.add(lblAutor, BorderLayout.NORTH);
 		
+		lblTempo = new JLabel();
+		lblTempo.setHorizontalAlignment(JLabel.RIGHT);
+		this.add(lblTempo, BorderLayout.SOUTH);
+		
 		txtTweet = new JEditorPane("text/html", "");
 		txtTweet.setEditable(false);
 		
@@ -57,6 +62,7 @@ public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet>
 		lblFoto.setIcon(value.getAutor().getFoto());
 		lblAutor.setText(value.getAutor().getNome());
 		txtTweet.setText(formatter.formatHTML(value.getMensagem()));
+		lblTempo.setText(formatter.generateTimeString(value.getDataDeCriacao()));
 		
 		setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
 		txtTweet.setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);

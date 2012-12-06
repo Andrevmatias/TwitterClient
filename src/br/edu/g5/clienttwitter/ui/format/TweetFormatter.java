@@ -1,5 +1,8 @@
 package br.edu.g5.clienttwitter.ui.format;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class TweetFormatter {
 
 	public String formatHTML(String tweet) {
@@ -33,6 +36,31 @@ public class TweetFormatter {
 		builder.append("</body>");
 		builder.append("</html>");
 		return builder.toString();
+	}
+
+	public String generateTimeString(Calendar dataDeCriacao) {
+		Calendar agora = Calendar.getInstance();
+		
+		long agoraEmMilissegundos = agora.getTimeInMillis();
+		long dataEmMilissegundos = dataDeCriacao.getTimeInMillis();
+		long diferenca = agoraEmMilissegundos - dataEmMilissegundos;
+		
+		double diferencaEmDias = diferenca / 86400000d;
+		if(diferencaEmDias > 1d)
+			return "em " + new SimpleDateFormat("dd/MM/yyyy")
+				.format(dataDeCriacao.getTime());
+		
+		int diferencaEmHoras = 
+				agora.get(Calendar.HOUR_OF_DAY) - dataDeCriacao.get(Calendar.HOUR_OF_DAY);
+		if(diferencaEmHoras >= 1)
+			return "a " + diferencaEmHoras + " hora(s)";
+		
+		int diferencaEmMinutos = 
+				agora.get(Calendar.MINUTE) - dataDeCriacao.get(Calendar.MINUTE);
+		if(diferencaEmMinutos >= 1)
+			return "a " + diferencaEmMinutos + " minuto(s)";
+		
+		return "agora";
 	}
 
 	

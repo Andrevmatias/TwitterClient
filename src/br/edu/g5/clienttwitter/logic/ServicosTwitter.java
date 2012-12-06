@@ -67,6 +67,7 @@ public class ServicosTwitter {
 		tweet.setAutor(this.convertUsuario(status.getUser()));
 		tweet.setMensagem(status.getText());
 		tweet.setId(status.getId());
+		tweet.setDataDeCriacao(status.getCreatedAt());
 		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
 		return tweet;
 	}
@@ -75,6 +76,7 @@ public class ServicosTwitter {
 		Tweet tweetModel = new Tweet();
 		tweetModel.setId(tweet.getId());
 		tweetModel.setMensagem(tweet.getText());
+		tweetModel.setDataDeCriacao(tweet.getCreatedAt());
 		tweetModel.setReplyTo(geraReplyTo(tweet.getUserMentionEntities()));
 		
 		tweetModel.setAutor(convertUsuario(tweet));
