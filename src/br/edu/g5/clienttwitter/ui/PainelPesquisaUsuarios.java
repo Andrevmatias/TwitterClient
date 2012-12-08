@@ -13,6 +13,7 @@ import br.edu.g5.clienttwitter.ui.models.UsuarioCellRenderer;
 public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 
 	private ServicosTwitter servicosTwitter;
+	private JanelaInfUsuario janelaInfUsuario;
 
 	public PainelPesquisaUsuarios(ServicosTwitter servicosTwiter) {
 		super("Nomes");
@@ -22,21 +23,15 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				seguirSelecionado();
+				mostrarInfUsuario();
 			}
 		});
 	}
 
-	private void seguirSelecionado() {
+	private void mostrarInfUsuario() {
 		Usuario selectedValue = getJList().getSelectedValue();
-		int resposta = JOptionPane.showConfirmDialog(this, "Você deseja seguir " + selectedValue.getNome() + "?");
-		if(resposta == JOptionPane.YES_OPTION){
-			try {
-				servicosTwitter.seguir(selectedValue.getId());
-			} catch (TwitterException e) {
-				JOptionPane.showMessageDialog(this, "Erro ao seguir usuário", "Erro", JOptionPane.ERROR_MESSAGE);
-			}
-		}
+		janelaInfUsuario = new JanelaInfUsuario(selectedValue);
+		janelaInfUsuario.mostre();
 	}
 
 	@Override
