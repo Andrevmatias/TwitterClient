@@ -35,9 +35,6 @@ public class PainelInfUsuario extends JPanel {
 		this.add(btnFollow, BorderLayout.LINE_START);
 		this.add(btnUnfollow, BorderLayout.PAGE_START);
 		this.add(textoInf);
-		usuario.getFoto();
-		usuario.getNick();
-		usuario.getNome();
 	}
 
 	private void iniciaComponents() {
@@ -49,7 +46,7 @@ public class PainelInfUsuario extends JPanel {
 				try {
 					servicosTwitter.seguir(usuario.getId());
 				} catch (TwitterException arg0) {
-					//TODO
+					JOptionPane.showMessageDialog(null, "Erro ao seguir " + usuario.getNome());
 				}
 
 			}
@@ -62,7 +59,7 @@ public class PainelInfUsuario extends JPanel {
 				try {
 					servicosTwitter.unfollow(usuario.getId());
 				} catch (TwitterException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao parar de seguir pessoa");
+					JOptionPane.showMessageDialog(null, "Erro ao parar de seguir " + usuario.getNome());
 				}
 			}
 		});
