@@ -22,9 +22,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import twitter4j.TwitterException;
-import br.edu.g5.clienttwitter.logic.Tweet;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
-import br.edu.g5.clienttwitter.logic.exceptions.ExceptionJaRetwittado;
+import br.edu.g5.clienttwitter.logic.Tweet;
+import br.edu.g5.clienttwitter.logic.exceptions.JaFavoritadoExcepiton;
 import br.edu.g5.clienttwitter.logic.exceptions.JaRetwittadoException;
 import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
 
@@ -41,6 +41,8 @@ public class PainelTweets extends JPanel {
 	private JTextArea textTweet;
 
 	private int paginaAtual = 1;
+
+	private JMenuItem itemFavoritar;
 
 	public PainelTweets(ServicosTwitter twitterInterface) {
 		super(new BorderLayout(3, 3));
@@ -59,7 +61,23 @@ public class PainelTweets extends JPanel {
 		
 		popupListaTweets = new JPopupMenu(); 
         itemRetwittar = new JMenuItem("Retwittar");
-	       
+
+        itemFavoritar = new JMenuItem("Favoritar");
+        itemFavoritar.addActionListener( new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					favoritaSelecionado();
+				} catch (TwitterException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+		});
+        popupListaTweets.add(itemFavoritar);
+        
+        popupListaTweets.addSeparator();
+        
         itemRetwittar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -139,6 +157,22 @@ public class PainelTweets extends JPanel {
 	  	Tweet tweet = listaTweets.getSelectedValue();
 	  	textTweet.setText(tweet.getReplyTo());
 	  	textTweet.requestFocus();
+	}
+	
+	private void favoritaSelecionado() throws TwitterException {
+		Tweet tweet = listaTweets.getSelectedValue();
+			try {
+				if(tweet.isFavoritado() == true)
+					throw new JaFavoritadoExcepiton();
+				twitterInterface.favoritar(tweet.getId());
+				tweet.setFavoritado(true);
+				JOptionPane.showMessageDialog(this, 
+						"Favoritado com sucesso!");
+			} catch (JaFavoritadoExcepiton e) {
+				JOptionPane.showMessageDialog(this, 
+						"Tweet já favoritado.");
+			}
+		
 	}
 	
 	private void retwitteSelecionado(){

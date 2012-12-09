@@ -148,7 +148,10 @@ public class ServicosTwitter {
 	public void unfollow(long id) throws TwitterException{
 		twitterManager.destroyFriendship(id);
  	}
-
+	
+	public void favoritar(long id) throws TwitterException {
+		twitterManager.createFavorite(id);
+	}
 
 	public List<Usuario> getSeguidores(int numPagina) throws IllegalStateException, TwitterException {
 		List<Usuario> seguidores = new LinkedList<>();
