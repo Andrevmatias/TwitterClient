@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import br.edu.g5.clienttwitter.logic.ServicosAuntent;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.ui.ajuda.JanelaAjuda;
 import br.edu.g5.clienttwitter.ui.enums.Paineis;
@@ -19,14 +20,16 @@ public class JanelaPrincipal extends JFrame {
 	private JMenuItem menuItemAjuda;
 	private JMenuItem menuItemSair;
 	private ServicosTwitter servicosTwiter;
+	private ServicosAuntent servicosAutent;
 	private PainelLogin painelLogin;
 	private JMenuItem menuItemPesquisaUsuarios;
 	private JMenuItem menuItemPesquisaTweets;
 	private JMenuItem menuItemPaginaInicial;
 	private JMenuItem menuItemSeguidores;
 
-	public JanelaPrincipal(ServicosTwitter twitterInterface) {
+	public JanelaPrincipal(ServicosTwitter twitterInterface, ServicosAuntent twitterAutent) {
 		this.servicosTwiter = twitterInterface;
+		this.servicosAutent = twitterAutent;
 
 		setTitle("The Passarinho");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -109,7 +112,7 @@ public class JanelaPrincipal extends JFrame {
 		barra.add(menu);
 		setJMenuBar(barra);
 		
-		painelLogin = new PainelLogin(this, servicosTwiter);
+		painelLogin = new PainelLogin(this, servicosAutent);
 		this.setContentPane(painelLogin);
 	}
 
@@ -123,7 +126,7 @@ public class JanelaPrincipal extends JFrame {
 			this.setContentPane(new PainelTweets(servicosTwiter));
 			break;
 		case LOGIN:
-			this.setContentPane(new PainelLogin(this, servicosTwiter));
+			this.setContentPane(new PainelLogin(this, servicosAutent));
 			break;
 		case PESQUISA_TWEETS:
 			this.setContentPane(new PainelPesquisaTweets(servicosTwiter));

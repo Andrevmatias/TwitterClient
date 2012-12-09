@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import twitter4j.TwitterException;
+import br.edu.g5.clienttwitter.logic.ServicosAuntent;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 import br.edu.g5.clienttwitter.ui.enums.Paineis;
@@ -33,7 +34,7 @@ public class PainelLogin extends JPanel {
 	private static final String DICA_CODIGO = "Digite aqui seu código";
 	private static final String ENDERECO_IMAGEM_PASSARINHO = "http://www.essaseoutras.xpg.com.br/wp-content/uploads/2012/03/twitter-logo.jpg";
 	private static final String ENDERECO_IMAGEM_BOTAO_ENTRAR = "http://i.imgur.com/GOfpA.png";
-	private ServicosTwitter twitterInterface;
+	private ServicosAuntent twitterInterface;
 	private JTextField textCodigo;
 	private JLabel imagem;
 	private JButton botaoLogin;
@@ -43,7 +44,7 @@ public class PainelLogin extends JPanel {
 	private GroupLayout layout = new GroupLayout(this);
 
 	public PainelLogin(JanelaPrincipal janelaPrincipal,
-			ServicosTwitter twitterInterface) {
+			ServicosAuntent twitterInterface) {
 		this.twitterInterface = twitterInterface;
 		this.janelaPrincipal = janelaPrincipal;
 
