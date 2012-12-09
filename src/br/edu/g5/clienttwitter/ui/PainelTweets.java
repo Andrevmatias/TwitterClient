@@ -24,6 +24,8 @@ import javax.swing.SwingWorker;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.Tweet;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
+import br.edu.g5.clienttwitter.logic.exceptions.ExceptionJaRetwittado;
+import br.edu.g5.clienttwitter.logic.exceptions.JaRetwittadoException;
 import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
 
 public class PainelTweets extends JPanel {
@@ -142,11 +144,15 @@ public class PainelTweets extends JPanel {
 	private void retwitteSelecionado(){
 		Tweet tweet = listaTweets.getSelectedValue();
 		try {
+			if(tweet.isRetwitByMe() == true)
+				throw new JaRetwittadoException();
 			twitterInterface.retwittar(tweet.getId());
 			JOptionPane.showMessageDialog(null, "Retwittado com sucesso.");
 		} catch (TwitterException ex) {
 			JOptionPane.showMessageDialog(this, "Erro ao retwittar");
 			ex.printStackTrace();
+		} catch (JaRetwittadoException e) {
+			JOptionPane.showMessageDialog(null, "Tweet já retwittado.");
 		}
 	}
 

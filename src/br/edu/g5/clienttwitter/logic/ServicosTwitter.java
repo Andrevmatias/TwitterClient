@@ -70,6 +70,8 @@ public class ServicosTwitter {
 		tweet.setId(status.getId());
 		tweet.setDataDeCriacao(status.getCreatedAt());
 		tweet.setReplyTo(geraReplyTo(status.getUserMentionEntities()));
+		tweet.setRetwitByMe(status.isRetweetedByMe());
+		tweet.setFavoritado(status.isFavorited());
 		return tweet;
 	}
 

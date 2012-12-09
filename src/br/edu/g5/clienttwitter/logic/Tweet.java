@@ -12,6 +12,8 @@ public class Tweet {
 	private long Id;
 	private String replyTo;
 	private Calendar dataDeCriacao;
+	private boolean favoritado;
+	private boolean retwitByMe;
 	
 	public Tweet(){
 		this.dataDeCriacao = Calendar.getInstance();
@@ -53,5 +55,21 @@ public class Tweet {
 
 	public void setDataDeCriacao(Date criadoEm) {
 		this.dataDeCriacao.setTime(criadoEm);
+	}
+
+	public boolean isFavoritado() {
+		return favoritado;
+	}
+
+	public void setFavoritado(boolean favoritado) {
+		this.favoritado = favoritado;
+	}
+
+	public boolean isRetwitByMe() {
+		return retwitByMe;
+	}
+
+	public void setRetwitByMe(boolean retwitByMe) {
+		this.retwitByMe = retwitByMe;
 	}
 }

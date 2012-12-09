@@ -18,6 +18,8 @@ public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet>
 
 	private static final Color COR_SELECIONADO = new Color(200,200,255);
 	private static final Color COR_NORMAL = new Color(255, 255, 255);
+	private static final Color COR_SELECIONADO_FAVORITADO = new Color(248,252,73);
+	private static final Color COR_NORMAL_FAVORITADO = new Color(250, 253, 138);
 
 	private BorderLayout layout = new BorderLayout(5, 5);
 	
@@ -64,9 +66,13 @@ public class TweetCellRenderer extends JPanel implements ListCellRenderer<Tweet>
 		txtTweet.setText(formatter.formatHTML(value.getMensagem()));
 		lblTempo.setText(formatter.generateTimeString(value.getDataDeCriacao()));
 		
-		setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
-		txtTweet.setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
-		
+		if(value.isFavoritado() == true) {
+			setBackground(isSelected ? COR_SELECIONADO_FAVORITADO : COR_NORMAL_FAVORITADO);
+			txtTweet.setBackground(isSelected ? COR_SELECIONADO_FAVORITADO : COR_NORMAL_FAVORITADO);
+		} else {
+			setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
+			txtTweet.setBackground(isSelected ? COR_SELECIONADO : COR_NORMAL);
+			}
 		return this;
 	}
 }
