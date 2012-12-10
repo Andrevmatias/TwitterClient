@@ -1,5 +1,7 @@
 package br.edu.g5.clienttwitter.ui;
 
+import java.awt.Dimension;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.ListSelectionEvent;
@@ -18,7 +20,7 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 	public PainelPesquisaUsuarios(ServicosTwitter servicosTwiter) {
 		super("Nomes");
 		this.servicosTwitter = servicosTwiter;
-		this.setSize(100, 300);
+		this.setPreferredSize(new Dimension(300, 600));
 		this.getJList().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override

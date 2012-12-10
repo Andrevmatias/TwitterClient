@@ -13,7 +13,7 @@ public class JanelaInfUsuario extends JDialog {
 	public JanelaInfUsuario(Usuario usuario){
 		painel = new PainelInfUsuario(usuario);
 		this.setBackground(Color.white);
-		this.setTitle("Informações do Usuario");
+		this.setTitle("InformaÃ§Ãµes do UsuÃ¡rio");
 		this.setSize(1200, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

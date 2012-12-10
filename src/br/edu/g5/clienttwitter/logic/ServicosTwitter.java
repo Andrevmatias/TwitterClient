@@ -1,14 +1,14 @@
 package br.edu.g5.clienttwitter.logic;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+
+import br.edu.g5.clienttwitter.logic.exceptions.PaginaInexistenteException;
 
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
@@ -21,14 +21,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.UserMentionEntity;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 
-/* FIXME Esta classe está fazendo pelo menos dois serviços bem distintos: autenticação e as outras funcionalidades.
- * reorganizem o código de modo que ServicoesTwitter se utilize de um objeto especializado em fazer autenticação.
- * O único objetivo é tornar mais fácil a manutenção do software. Não se trata, portanto, de erro.
- */ 
 public class ServicosTwitter {
 
 	private static final int TWEETS_POR_PAGINA = 20;
@@ -36,7 +29,8 @@ public class ServicosTwitter {
 
 	public ServicosTwitter() {
 		this.twitterManager = TwitterFactory.getSingleton();
-		}
+	}
+	
 	public Tweet[] getTweets(int numPagina) throws TwitterException {
 		List<Tweet> tweetsModel = new ArrayList<Tweet>();
 		
@@ -75,7 +69,12 @@ public class ServicosTwitter {
 
 	private Usuario convertUsuario(User source) {
 		Usuario autor = new Usuario();
-		autor.setFoto(new ImageIcon(source.getProfileImageURL()));
+		try {
+			autor.setFoto(new ImageIcon(new URL(source.getProfileImageURL())));
+		} catch (MalformedURLException e) {
+			//Improvável
+			e.printStackTrace();
+		}
 		autor.setNome(source.getName());
 		autor.setNick(source.getScreenName());
 		autor.setId(source.getId());
@@ -130,10 +129,22 @@ public class ServicosTwitter {
 		twitterManager.createFavorite(id);
 	}
 
-	public List<Usuario> getSeguidores(int numPagina) throws IllegalStateException, TwitterException {
+	public List<Usuario> getSeguidores(int numPagina) throws TwitterException, PaginaInexistenteException {
 		List<Usuario> seguidores = new LinkedList<>();
 		PagableResponseList<User> response = 
 				twitterManager.getFollowersList(twitterManager.getId(), -1);
+		
+		if(numPagina > 1){
+			long cursor = 0l;
+			
+			for(int i = 1; i < numPagina; i++)
+				if(response.hasNext())
+					cursor = response.getNextCursor();
+				else
+					throw new PaginaInexistenteException("A página de seguidores não existe");
+			
+			response = twitterManager.getFollowersList(twitterManager.getId(), cursor);
+		}
 		
 		for(User seguidor : response)
 			seguidores.add(convertUsuario(seguidor));

@@ -25,7 +25,6 @@ import javax.swing.JTextField;
 
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosAuntent;
-import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.exceptions.ImpossivelAbrirBrowserException;
 import br.edu.g5.clienttwitter.ui.enums.Paineis;
 

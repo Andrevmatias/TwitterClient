@@ -53,12 +53,12 @@ public class TweetFormatter {
 		int diferencaEmHoras = 
 				agora.get(Calendar.HOUR_OF_DAY) - dataDeCriacao.get(Calendar.HOUR_OF_DAY);
 		if(diferencaEmHoras >= 1)
-			return "a " + diferencaEmHoras + " hora(s)";
+			return "há " + diferencaEmHoras + " hora(s)";
 		
 		int diferencaEmMinutos = 
 				agora.get(Calendar.MINUTE) - dataDeCriacao.get(Calendar.MINUTE);
 		if(diferencaEmMinutos >= 1)
-			return "a " + diferencaEmMinutos + " minuto(s)";
+			return "há " + diferencaEmMinutos + " minuto(s)";
 		
 		return "agora";
 	}

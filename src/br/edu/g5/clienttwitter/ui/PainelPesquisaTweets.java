@@ -1,5 +1,6 @@
 package br.edu.g5.clienttwitter.ui;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ public class PainelPesquisaTweets extends PainelPesquisa<Tweet> {
 	public PainelPesquisaTweets(ServicosTwitter servicosTwiter) {
 		super("Tweet");
 		this.servicosTwitter = servicosTwiter;
-		this.setSize(100, 300);
+		this.setPreferredSize(new Dimension(300, 600));
 	}
 
 	@Override

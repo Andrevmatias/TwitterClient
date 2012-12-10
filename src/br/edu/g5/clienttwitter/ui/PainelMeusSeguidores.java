@@ -1,5 +1,6 @@
 package br.edu.g5.clienttwitter.ui;
 
+import java.awt.Dimension;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.swing.JScrollPane;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Usuario;
+import br.edu.g5.clienttwitter.logic.exceptions.PaginaInexistenteException;
 import br.edu.g5.clienttwitter.ui.models.UsuarioCellRenderer;
 
 public class PainelMeusSeguidores extends JPanel {
@@ -28,11 +30,15 @@ public class PainelMeusSeguidores extends JPanel {
 		this.servicosTwiter = servicosTwiter;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		this.setSize(100, 300);
+		this.setPreferredSize(new Dimension(300, 600));
 		
 		initComponents();
 		
-		carreguePagina(paginaAtual);
+		try {
+			carreguePagina(paginaAtual);
+		} catch (PaginaInexistenteException e) {
+			//Não carrega a primeira página
+		}
 	}
 
 	private void initComponents() {
@@ -46,7 +52,9 @@ public class PainelMeusSeguidores extends JPanel {
 			.addAdjustmentListener(new AdjustmentListener() {
 				@Override
 				public void adjustmentValueChanged(AdjustmentEvent e) {
-					if(e.getValueIsAdjusting()) return;
+					if(e.getValueIsAdjusting() 
+							|| !paneTweets.getVerticalScrollBar().isShowing()) 
+						return;
 	
 					int viewPosition = paneTweets.getViewport().getViewPosition().y;
 					int viewSize = paneTweets.getViewport().getSize().height;
@@ -55,14 +63,20 @@ public class PainelMeusSeguidores extends JPanel {
 					boolean scrolledToEnd = (viewPosition + viewSize) >= listaSize;
 	
 					if(scrolledToEnd)
-						carreguePagina(++paginaAtual);
+						try {
+							carreguePagina(++paginaAtual);
+						} catch (PaginaInexistenteException e1) {
+							// Não carrega a página
+						}
 				}
 			});
 	}
 	
-	private void carreguePagina(int numPagina) {
+	private void carreguePagina(int numPagina) throws PaginaInexistenteException {
 		try{
-			List<Usuario> usuarios = servicosTwiter.getSeguidores(numPagina);
+			List<Usuario> usuarios;
+			usuarios = servicosTwiter.getSeguidores(numPagina);
+
 			int index = usuarios.size() * (numPagina - 1);
 	
 			for(Usuario usuario : usuarios){
@@ -77,8 +91,8 @@ public class PainelMeusSeguidores extends JPanel {
 				index++;
 			}
 		}catch(TwitterException e){
-			JOptionPane.showMessageDialog(this, "Erro ao carregar tweets",
-					"Carregar Tweets", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Erro ao carregar seguidores",
+					"Carregar Seguidores", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
