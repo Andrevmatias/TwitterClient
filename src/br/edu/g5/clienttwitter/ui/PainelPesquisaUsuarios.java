@@ -32,7 +32,7 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 
 	private void mostrarInfUsuario() {
 		Usuario selectedValue = getJList().getSelectedValue();
-		janelaInfUsuario = new JanelaInfUsuario(selectedValue);
+		janelaInfUsuario = new JanelaInfUsuario(selectedValue, servicosTwitter);
 		janelaInfUsuario.mostre();
 	}
 

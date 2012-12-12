@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import br.edu.g5.clienttwitter.logic.exceptions.PaginaInexistenteException;
-
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Query;
@@ -21,6 +19,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.UserMentionEntity;
+import br.edu.g5.clienttwitter.logic.exceptions.PaginaInexistenteException;
 
 public class ServicosTwitter {
 
@@ -47,7 +46,7 @@ public class ServicosTwitter {
 		return tweetsModel.toArray(new Tweet[0]);
 	}
 
-	private Tweet convertTweet(Status status) {
+	private Tweet convertTweet(Status status) throws IllegalStateException, TwitterException {
 		Tweet tweet = new Tweet();
 		tweet.setAutor(this.convertUsuario(status.getUser()));
 		tweet.setMensagem(status.getText());
@@ -67,7 +66,7 @@ public class ServicosTwitter {
 		return replyTo.toString();		
 	}
 
-	private Usuario convertUsuario(User source) {
+	private Usuario convertUsuario(User source) throws IllegalStateException, TwitterException {
 		Usuario autor = new Usuario();
 		try {
 			autor.setFoto(new ImageIcon(new URL(source.getProfileImageURL())));
@@ -78,6 +77,8 @@ public class ServicosTwitter {
 		autor.setNome(source.getName());
 		autor.setNick(source.getScreenName());
 		autor.setId(source.getId());
+		autor.setDescricao(source.getDescription());
+		autor.setSeguindo(source.isFollowRequestSent());
 		return autor;
 	}
 
@@ -116,7 +117,7 @@ public class ServicosTwitter {
 	    return tweets;
 	}
 
-	public void seguir(long id) throws TwitterException {
+	public void follow(long id) throws TwitterException {
 		twitterManager.createFriendship(id);
 			
 	}
@@ -127,6 +128,10 @@ public class ServicosTwitter {
 	
 	public void favoritar(long id) throws TwitterException {
 		twitterManager.createFavorite(id);
+	}
+	
+	public void enviarDirectMessage(long id, String msg) throws TwitterException{
+		twitterManager.sendDirectMessage(id, msg);
 	}
 
 	public List<Usuario> getSeguidores(int numPagina) throws TwitterException, PaginaInexistenteException {
@@ -150,5 +155,9 @@ public class ServicosTwitter {
 			seguidores.add(convertUsuario(seguidor));
 		
 		return seguidores;
+	}
+	
+	public ResponseList<Status> getTimeline(long id) throws TwitterException{
+		return twitterManager.getUserTimeline(id);
 	}
 }

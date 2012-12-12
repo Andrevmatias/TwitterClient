@@ -8,6 +8,8 @@ public class Usuario {
 	private Icon foto;
 	private String nick;
 	private long id;
+	private boolean isSeguindo;
+	private String descricao;
 	
 	public String getNome() {
 		return nome;
@@ -39,6 +41,22 @@ public class Usuario {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public boolean isSeguindo() {
+		return isSeguindo;
+	}
+
+	public void setSeguindo(boolean isSeguindo) {
+		this.isSeguindo = isSeguindo;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public String getDescricao(){
+		return descricao;
 	}
 
 }
