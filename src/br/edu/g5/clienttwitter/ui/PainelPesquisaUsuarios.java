@@ -1,11 +1,12 @@
 package br.edu.g5.clienttwitter.ui;
 
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.SwingUtilities;
 
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
@@ -21,13 +22,14 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 		super("Nomes");
 		this.servicosTwitter = servicosTwiter;
 		this.setPreferredSize(new Dimension(300, 600));
-		this.getJList().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent event) {
-				mostrarInfUsuario();
-			}
-		});
+		this.getJList().addMouseListener(new MouseAdapter() {
+        	@Override
+            public void mousePressed(MouseEvent evt) {
+                if (SwingUtilities.isLeftMouseButton(evt)) {           	
+                	mostrarInfUsuario();
+                }
+            }
+        });
 	}
 
 	private void mostrarInfUsuario() {
