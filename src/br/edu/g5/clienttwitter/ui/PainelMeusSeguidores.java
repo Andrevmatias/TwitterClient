@@ -3,6 +3,8 @@ package br.edu.g5.clienttwitter.ui;
 import java.awt.Dimension;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -11,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
@@ -44,6 +47,14 @@ public class PainelMeusSeguidores extends JPanel {
 	private void initComponents() {
 		listaUsuarios = new JList<Usuario>(new DefaultListModel<Usuario>());
 		listaUsuarios.setCellRenderer(new UsuarioCellRenderer(servicosTwiter));
+		listaUsuarios.addMouseListener(new MouseAdapter() {
+        	@Override
+            public void mousePressed(MouseEvent evt) {
+                if (SwingUtilities.isLeftMouseButton(evt)) {  
+                	new MostradorJanelaInf().mostrarInfUsuarioListUsuarios(listaUsuarios);
+                }
+            }
+        });
 
 		paneTweets = new JScrollPane(listaUsuarios);
 		this.add(paneTweets);

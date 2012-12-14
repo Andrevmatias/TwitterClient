@@ -25,17 +25,11 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 		this.getJList().addMouseListener(new MouseAdapter() {
         	@Override
             public void mousePressed(MouseEvent evt) {
-                if (SwingUtilities.isLeftMouseButton(evt)) {           	
-                	mostrarInfUsuario();
+                if (SwingUtilities.isLeftMouseButton(evt)) {  
+                	new MostradorJanelaInf().mostrarInfUsuarioListUsuarios(getJList());
                 }
             }
         });
-	}
-
-	private void mostrarInfUsuario() {
-		Usuario selectedValue = getJList().getSelectedValue();
-		janelaInfUsuario = new JanelaInfUsuario(selectedValue, servicosTwitter);
-		janelaInfUsuario.mostre();
 	}
 
 	@Override

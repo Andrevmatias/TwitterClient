@@ -24,7 +24,6 @@ import javax.swing.SwingWorker;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Tweet;
-import br.edu.g5.clienttwitter.logic.Usuario;
 import br.edu.g5.clienttwitter.logic.exceptions.JaFavoritadoExcepiton;
 import br.edu.g5.clienttwitter.logic.exceptions.JaRetwittadoException;
 import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
@@ -46,7 +45,6 @@ public class PainelTweets extends JPanel {
 
 	private int paginaAtual = 1;
 
-	private JanelaInfUsuario janelaInfUsuario;
 
 	public PainelTweets(ServicosTwitter twitterInterface) {
 		super(new BorderLayout(3, 3));
@@ -73,7 +71,7 @@ public class PainelTweets extends JPanel {
 				try {
 					favoritaSelecionado();
 				} catch (TwitterException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Erro ao favoritar!", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -104,9 +102,7 @@ public class PainelTweets extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Usuario selectedValue = listaTweets.getSelectedValue().getAutor();
-				janelaInfUsuario = new JanelaInfUsuario(selectedValue, twitterInterface);
-				janelaInfUsuario.mostre();
+				new MostradorJanelaInf().mostrarInfUsuarioListTweets(listaTweets);
 				}
 		});
         

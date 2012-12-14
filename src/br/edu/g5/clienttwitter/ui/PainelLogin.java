@@ -133,7 +133,7 @@ public class PainelLogin extends JPanel {
 			janelaPrincipal.habiliteMenus();
 			janelaPrincipal.mostre(Paineis.TWEETS);
 		} catch (TwitterException ex) {
-			JOptionPane.showMessageDialog(this, "C贸digo inv谩lido", "C贸digo",
+			JOptionPane.showMessageDialog(this, "C贸digo inv谩lido! Gere o c骴igo novamente.", "C贸digo",
 					JOptionPane.ERROR_MESSAGE);
 		} catch (IllegalStateException exState) {
 			JOptionPane.showMessageDialog(this,
