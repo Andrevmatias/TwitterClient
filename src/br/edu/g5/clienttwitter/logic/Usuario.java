@@ -1,5 +1,7 @@
 package br.edu.g5.clienttwitter.logic;
 
+import java.util.Date;
+
 import javax.swing.Icon;
 
 public class Usuario {
@@ -10,6 +12,9 @@ public class Usuario {
 	private long id;
 	private boolean isSeguindo;
 	private String descricao;
+	private Date criadoEm;
+	private int quantidadeSeguindo;
+	private int quantidadeAmigos;
 	
 	public String getNome() {
 		return nome;
@@ -59,6 +64,30 @@ public class Usuario {
 	
 	public String getDescricao(){
 		return descricao;
+	}
+
+	public Date getCriadoEm() {
+		return criadoEm;
+	}
+
+	public void setCriadoEm(Date criadoEm) {
+		this.criadoEm = criadoEm;
+	}
+
+	public int getQuantidadeSeguindo() {
+		return quantidadeSeguindo;
+	}
+
+	public void setQuantidadeSeguindo(int quantidadeSeguindo) {
+		this.quantidadeSeguindo = quantidadeSeguindo;
+	}
+
+	public int getQuantidadeAmigos() {
+		return quantidadeAmigos;
+	}
+
+	public void setQuantidadeAmigos(int quantidadeAmigos) {
+		this.quantidadeAmigos = quantidadeAmigos;
 	}
 
 }

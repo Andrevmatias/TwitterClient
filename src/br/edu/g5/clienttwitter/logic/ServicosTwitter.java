@@ -79,6 +79,9 @@ public class ServicosTwitter {
 		autor.setId(source.getId());
 		autor.setDescricao(source.getDescription());
 		autor.setSeguindo(source.isProfileBackgroundTiled());
+		autor.setCriadoEm(source.getCreatedAt());
+		autor.setQuantidadeSeguindo(source.getFollowersCount());
+		autor.setQuantidadeAmigos(source.getFriendsCount());
 		return autor;
 	}
 

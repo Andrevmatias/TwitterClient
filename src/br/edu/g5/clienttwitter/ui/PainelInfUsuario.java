@@ -81,7 +81,7 @@ public class PainelInfUsuario extends JPanel {
 
 		});
 		this.add(btnFollow);
-		textoInf = new JLabel("<html><b>" + usuario.getNome() + 
+		textoInf = new JLabel("<html><b>" + usuario.getNome()+"(Seguidores:"+" "+ usuario.getQuantidadeSeguindo() + 
 				"</b><br/>" + "@" + usuario.getNick() + 
 				"<br/><i>" + usuario.getDescricao() + "</i>");
 	}
