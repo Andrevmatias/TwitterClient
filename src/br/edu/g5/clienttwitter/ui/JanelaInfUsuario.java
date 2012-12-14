@@ -1,6 +1,9 @@
 package br.edu.g5.clienttwitter.ui;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JDialog;
 
@@ -18,6 +21,7 @@ public class JanelaInfUsuario extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setContentPane(painel);
+		this.setModal(true);
 		pack();
 	}
 	

@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -55,6 +58,14 @@ public class PainelInfUsuario extends JPanel {
 		campoDM = new JTextField(10);
 		foto = new JLabel(usuario.getFoto());
 		btnDM = new JButton("Enviar mensagem");
+		btnDM.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					enviarDM();
+			}
+		});
+		
 		btnDM.addActionListener(new ActionListener() {
 
 			@Override
@@ -81,7 +92,8 @@ public class PainelInfUsuario extends JPanel {
 
 		});
 		this.add(btnFollow);
-		textoInf = new JLabel("<html><b>" + usuario.getNome()+"(Seguidores:"+" "+ usuario.getQuantidadeSeguindo() + 
+		textoInf = new JLabel("<html><b>" + usuario.getNome()+" (Seguidores:"+" "+ usuario.getQuantidadeSeguindo()
+				+")"+ 
 				"</b><br/>" + "@" + usuario.getNick() + 
 				"<br/><i>" + usuario.getDescricao() + "</i>");
 	}

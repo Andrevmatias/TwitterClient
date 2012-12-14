@@ -16,6 +16,7 @@ public class JanelaAjuda extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setContentPane(principalPainel);
+		this.setModal(true);
 	}
 	public void interaja() {
 		this.setVisible(true);		
