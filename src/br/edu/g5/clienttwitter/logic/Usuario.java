@@ -53,6 +53,8 @@ public class Usuario {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+		if(descricao == null)
+			this.descricao = "";
 	}
 	
 	public String getDescricao(){

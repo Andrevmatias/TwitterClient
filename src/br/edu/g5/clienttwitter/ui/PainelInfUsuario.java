@@ -37,17 +37,15 @@ public class PainelInfUsuario extends JPanel {
 		this.add(painelInformacoes, BorderLayout.NORTH);
 		this.add(painelBtns, BorderLayout.SOUTH);
 		this.add(painelDM, BorderLayout.CENTER);
-		this.add(painelListaTweets, BorderLayout.WEST);
-		if(usuario.isSeguindo()){
-			this.painelBtns.add(btnUnfollow);
-			this.painelDM.add(campoDM);
-		} else {
-			this.painelBtns.add(btnFollow);
-		}
+		this.add(painelListaTweets, BorderLayout.EAST);
+		this.painelBtns.add(btnFollow);
+		this.painelBtns.add(btnUnfollow);
 		this.painelDM.add(campoDM);
+		this.painelDM.add(btnDM);
 		this.painelInformacoes.add(foto);
 		this.painelInformacoes.add(textoInf);
 	}
+	
 
 	private void iniciaComponents() {
 		painelBtns = new JPanel();
@@ -61,12 +59,8 @@ public class PainelInfUsuario extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					servicosTwitter.enviarDirectMessage(usuario.getId(), campoDM.getText());
-				} catch (TwitterException e) {
-					e.printStackTrace();
-				}
-			}
+				enviarDM();
+			}			
 		});
 
 		btnUnfollow = new JButton("Unfollow");
@@ -83,8 +77,6 @@ public class PainelInfUsuario extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				follow();
-				JOptionPane.showMessageDialog(null, "Seguindo " + "@" + usuario.getNick(), 
-						"Aviso!", 1);
 			}
 
 		});
@@ -97,16 +89,37 @@ public class PainelInfUsuario extends JPanel {
 	private void follow() {
 		try {
 			servicosTwitter.follow(this.usuario.getId());
-		} catch (TwitterException arg0) {
-			JOptionPane.showMessageDialog(null, "Erro ao seguir " + usuario.getNome());
-		}
+			usuario.setSeguindo(true);
+			JOptionPane.showMessageDialog(null, "Seguindo " + "@" + usuario.getNick(), 
+					"Aviso!", 1);
+		} catch (TwitterException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao seguir " + usuario.getNome() +
+					"!" + " Verifique se você já está seguindo o usuário.", "Problema seguir"
+					, JOptionPane.WARNING_MESSAGE);
+			}
 	}
 
 	private void unfollow(){
 		try {
-			servicosTwitter.unfollow(usuario.getId());
+			servicosTwitter.unfollow(this.usuario.getId());
+			usuario.setSeguindo(false);
+			JOptionPane.showMessageDialog(null, "Você parou de seguir " + "@" + usuario.getNick(), 
+					"Aviso!", 1);
 		} catch (TwitterException e1) {
-			JOptionPane.showMessageDialog(null, "Erro ao parar de seguir " + usuario.getNome());
+			JOptionPane.showMessageDialog(null, "Erro ao parar de seguir " + usuario.getNome() +
+					"!" + " Verifique se você está seguindo o usuário.", "Problema ao parar de seguir"
+					, JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	private void enviarDM() {
+		try {
+			servicosTwitter.enviarDirectMessage(usuario.getNick(), campoDM.getText());
+			JOptionPane.showMessageDialog(null,"Mensagem enviada com sucesso!", "Mensagem Direta" , JOptionPane.INFORMATION_MESSAGE);
+			campoDM.setText("");
+		} catch (TwitterException e) {
+			JOptionPane.showMessageDialog(null,"Erro ao enviar mensager!" + " Verifique se você está seguindo o usuário.",
+					"Problema ao enviar mensagem", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

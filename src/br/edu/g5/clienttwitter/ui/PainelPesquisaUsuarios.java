@@ -24,7 +24,7 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 		this.getJList().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
+			public void valueChanged(ListSelectionEvent event) {
 				mostrarInfUsuario();
 			}
 		});

@@ -24,6 +24,7 @@ import javax.swing.SwingWorker;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Tweet;
+import br.edu.g5.clienttwitter.logic.Usuario;
 import br.edu.g5.clienttwitter.logic.exceptions.JaFavoritadoExcepiton;
 import br.edu.g5.clienttwitter.logic.exceptions.JaRetwittadoException;
 import br.edu.g5.clienttwitter.ui.models.TweetCellRenderer;
@@ -33,16 +34,19 @@ public class PainelTweets extends JPanel {
 	private ServicosTwitter twitterInterface;
 	
 	private JList<Tweet> listaTweets;
+	
 	private JPopupMenu popupListaTweets;
+	private JMenuItem itemFavoritar;
 	private JMenuItem itemRetwittar;
 	private JMenuItem itemReply;
+	private JMenuItem itemInfUsuario;
 	
 	private JScrollPane paneTweets;
 	private JTextArea textTweet;
 
 	private int paginaAtual = 1;
 
-	private JMenuItem itemFavoritar;
+	private JanelaInfUsuario janelaInfUsuario;
 
 	public PainelTweets(ServicosTwitter twitterInterface) {
 		super(new BorderLayout(3, 3));
@@ -95,6 +99,20 @@ public class PainelTweets extends JPanel {
 		});
         popupListaTweets.add(itemReply);
         
+        itemInfUsuario = new JMenuItem("Informações do usuário");
+        itemInfUsuario.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Usuario selectedValue = listaTweets.getSelectedValue().getAutor();
+				janelaInfUsuario = new JanelaInfUsuario(selectedValue, twitterInterface);
+				janelaInfUsuario.mostre();
+				}
+		});
+        
+        popupListaTweets.addSeparator();
+        popupListaTweets.add(itemInfUsuario);
+        
         listaTweets.addMouseListener(new MouseAdapter() {
         	@Override
             public void mousePressed(MouseEvent evt) {
@@ -108,6 +126,8 @@ public class PainelTweets extends JPanel {
 
 		paneTweets = new JScrollPane(listaTweets);
 		this.add(paneTweets, BorderLayout.CENTER);
+		
+		
 		
 		paneTweets.getVerticalScrollBar()
 			.addAdjustmentListener(new AdjustmentListener() {
@@ -235,4 +255,6 @@ public class PainelTweets extends JPanel {
 			return null;
 		}
 	}
+	
+
 }

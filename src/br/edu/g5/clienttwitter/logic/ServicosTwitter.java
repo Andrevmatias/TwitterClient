@@ -78,7 +78,7 @@ public class ServicosTwitter {
 		autor.setNick(source.getScreenName());
 		autor.setId(source.getId());
 		autor.setDescricao(source.getDescription());
-		autor.setSeguindo(source.isFollowRequestSent());
+		autor.setSeguindo(source.isProfileBackgroundTiled());
 		return autor;
 	}
 
@@ -130,8 +130,8 @@ public class ServicosTwitter {
 		twitterManager.createFavorite(id);
 	}
 	
-	public void enviarDirectMessage(long id, String msg) throws TwitterException{
-		twitterManager.sendDirectMessage(id, msg);
+	public void enviarDirectMessage(String nick, String msg) throws TwitterException{
+		twitterManager.sendDirectMessage(nick, msg);
 	}
 
 	public List<Usuario> getSeguidores(int numPagina) throws TwitterException, PaginaInexistenteException {
