@@ -6,14 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import twitter4j.ResponseList;
+import twitter4j.Status;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Usuario;
@@ -52,9 +54,13 @@ public class PainelInfUsuario extends JPanel {
 
 	private void iniciaComponents() {
 		painelBtns = new JPanel();
+		painelBtns.setBackground(Color.white);
 		painelDM = new JPanel();
+		painelDM.setBackground(Color.white);
 		painelInformacoes = new JPanel();
+		painelInformacoes.setBackground(Color.white);
 		painelListaTweets = new JPanel();
+		painelListaTweets.setBackground(Color.white);
 		campoDM = new JTextField(10);
 		foto = new JLabel(usuario.getFoto());
 		btnDM = new JButton("Enviar mensagem");

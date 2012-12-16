@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JList;
 
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
@@ -160,7 +161,21 @@ public class ServicosTwitter {
 		return seguidores;
 	}
 	
-	public ResponseList<Status> getTimeline(long id) throws TwitterException{
-		return twitterManager.getUserTimeline(id);
+		public Tweet[] getTweets(int numPagina, long id) throws TwitterException {
+		List<Tweet> tweetsModel = new ArrayList<Tweet>();
+		
+		Paging paging = new Paging(numPagina, TWEETS_POR_PAGINA);
+		
+		ResponseList<Status> tweets;
+		tweets = twitterManager.getUserTimeline(id, paging);
+		
+		for (Status tweet : tweets) {
+			Tweet tweetModel = this.convertTweet(tweet);
+			tweetsModel.add(tweetModel);
+		}
+
+		return tweetsModel.toArray(new Tweet[0]);
 	}
+	
+	
 }

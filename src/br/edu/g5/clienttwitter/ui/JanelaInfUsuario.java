@@ -12,10 +12,10 @@ import br.edu.g5.clienttwitter.logic.Usuario;
 
 public class JanelaInfUsuario extends JDialog {
 	
-	private PainelInfUsuario painel;
+	private PainelPrincipalInf painel;
 	
 	public JanelaInfUsuario(Usuario usuario, ServicosTwitter servicosTwitter){
-		painel = new PainelInfUsuario(usuario, servicosTwitter);
+		painel = new PainelPrincipalInf(usuario, servicosTwitter);
 		this.setBackground(Color.white);
 		this.setTitle("Informações do Usuário");
 		this.setLocationRelativeTo(null);
