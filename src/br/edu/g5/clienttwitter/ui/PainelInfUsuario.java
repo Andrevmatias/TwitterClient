@@ -9,13 +9,10 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import twitter4j.ResponseList;
-import twitter4j.Status;
 import twitter4j.TwitterException;
 import br.edu.g5.clienttwitter.logic.ServicosTwitter;
 import br.edu.g5.clienttwitter.logic.Usuario;
@@ -112,7 +109,7 @@ public class PainelInfUsuario extends JPanel {
 					"Aviso!", 1);
 		} catch (TwitterException e1) {
 			JOptionPane.showMessageDialog(null, "Erro ao seguir " + usuario.getNome() +
-					"!" + " Verifique se você já está seguindo o usuário.", "Problema seguir"
+					"!" + " Verifique se vocï¿½ jï¿½ estï¿½ seguindo o usuï¿½rio.", "Problema seguir"
 					, JOptionPane.WARNING_MESSAGE);
 			}
 	}
@@ -121,11 +118,11 @@ public class PainelInfUsuario extends JPanel {
 		try {
 			servicosTwitter.unfollow(this.usuario.getId());
 			usuario.setSeguindo(false);
-			JOptionPane.showMessageDialog(null, "Você parou de seguir " + "@" + usuario.getNick(), 
+			JOptionPane.showMessageDialog(null, "Vocï¿½ parou de seguir " + "@" + usuario.getNick(), 
 					"Aviso!", 1);
 		} catch (TwitterException e1) {
 			JOptionPane.showMessageDialog(null, "Erro ao parar de seguir " + usuario.getNome() +
-					"!" + " Verifique se você está seguindo o usuário.", "Problema ao parar de seguir"
+					"!" + " Verifique se vocï¿½ estï¿½ seguindo o usuï¿½rio.", "Problema ao parar de seguir"
 					, JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -136,7 +133,7 @@ public class PainelInfUsuario extends JPanel {
 			JOptionPane.showMessageDialog(null,"Mensagem enviada com sucesso!", "Mensagem Direta" , JOptionPane.INFORMATION_MESSAGE);
 			campoDM.setText("");
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(null,"Erro ao enviar mensager!" + " Verifique se você está seguindo o usuário.",
+			JOptionPane.showMessageDialog(null,"Erro ao enviar mensager!" + " Verifique se vocï¿½ estï¿½ seguindo o usuï¿½rio.",
 					"Problema ao enviar mensagem", JOptionPane.ERROR_MESSAGE);
 		}
 	}

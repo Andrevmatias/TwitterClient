@@ -3,7 +3,10 @@ package br.edu.g5.clienttwitter.ui;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
@@ -16,7 +19,7 @@ import br.edu.g5.clienttwitter.ui.models.UsuarioCellRenderer;
 public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 
 	private ServicosTwitter servicosTwitter;
-	private JanelaInfUsuario janelaInfUsuario;
+	private String argumento;
 
 	public PainelPesquisaUsuarios(ServicosTwitter servicosTwiter) {
 		super("Nomes");
@@ -34,10 +37,19 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 
 	@Override
 	protected void pesquisar(String argumento) {
+		if(argumento == null)
+			return;
+		
+		this.argumento = argumento;
 		try {
-			Usuario[] usuarios = 
-					servicosTwitter.pesquisarUsuarios(argumento);
-			this.getJList().setListData(usuarios);
+			List<Usuario> usuarios = 
+					servicosTwitter.pesquisarUsuarios(argumento, getPaginaAtual());
+			
+			DefaultListModel<Usuario> model =
+					((DefaultListModel<Usuario>)this.getJList().getModel());
+			
+			for(Usuario item : usuarios)
+				model.addElement(item);
 		} catch (TwitterException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao pesquisar usuários", 
 					"Pesquisar usuários", JOptionPane.ERROR_MESSAGE);
@@ -47,5 +59,18 @@ public class PainelPesquisaUsuarios extends PainelPesquisa<Usuario> {
 	@Override
 	protected ListCellRenderer<Usuario> getCellRenderer() {
 		return new UsuarioCellRenderer(servicosTwitter);
+	}
+
+	@Override
+	protected List<Usuario> getPagina(int numPagina) {
+		if(this.argumento != null){
+			try {
+				return servicosTwitter.pesquisarUsuarios(argumento, numPagina);
+			}catch(TwitterException e){
+				JOptionPane.showMessageDialog(this, "Erro ao carregar página",
+						"Carregar Página", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		return new LinkedList<Usuario>();
 	}
 }

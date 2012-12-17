@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -58,8 +59,9 @@ public class PainelTweets extends JPanel {
 
 	private void initComponents() {
 				
-		listaTweets = new JList<Tweet>(new DefaultListModel<Tweet>());
+		listaTweets = new JList<Tweet>();
 		listaTweets.setCellRenderer(new TweetCellRenderer());
+		listaTweets.setModel(new DefaultListModel<Tweet>());
 		
 		popupListaTweets = new JPopupMenu(); 
         itemRetwittar = new JMenuItem("Retwittar");
@@ -97,7 +99,7 @@ public class PainelTweets extends JPanel {
 		});
         popupListaTweets.add(itemReply);
         
-        itemInfUsuario = new JMenuItem("Informações do usuário");
+        itemInfUsuario = new JMenuItem("Informaï¿½ï¿½es do usuï¿½rio");
         itemInfUsuario.addActionListener( new ActionListener() {
 			
 			@Override
@@ -186,7 +188,7 @@ public class PainelTweets extends JPanel {
 						"Favoritado com sucesso!");
 			} catch (JaFavoritadoExcepiton e) {
 				JOptionPane.showMessageDialog(this, 
-						"Tweet já favoritado.");
+						"Tweet jï¿½ favoritado.");
 			}
 		
 	}
@@ -202,14 +204,14 @@ public class PainelTweets extends JPanel {
 			JOptionPane.showMessageDialog(this, "Erro ao retwittar");
 			ex.printStackTrace();
 		} catch (JaRetwittadoException e) {
-			JOptionPane.showMessageDialog(null, "Tweet já retwittado.");
+			JOptionPane.showMessageDialog(null, "Tweet jï¿½ retwittado.");
 		}
 	}
 
 	private void carreguePagina(int numPagina) {
 		try{
-			Tweet[] tweets = twitterInterface.getTweets(numPagina);
-			int index = tweets.length * (numPagina - 1);
+			List<Tweet> tweets = twitterInterface.getTweets(numPagina);
+			int index = tweets.size() * (numPagina - 1);
 	
 			for(Tweet tweet : tweets){
 				DefaultListModel<Tweet> model =
