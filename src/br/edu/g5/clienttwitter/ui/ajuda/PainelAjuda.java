@@ -77,7 +77,7 @@ public class PainelAjuda extends JScrollPane{
 			.append("<h2>Como Responder</h2>")
 			.append("Para retwittar basta clicar com o botÃ£o direito " +
 					"do mouse no tweet desejado e selecionar a " +
-					"opÃ§Ã£o 'Reply'." +
+					"opÃ§Ã£o \"Reply\"." +
 					"Apï¿½s isso vocï¿½ serï¿½ redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
 			.append("</p>")
 
@@ -99,10 +99,46 @@ public class PainelAjuda extends JScrollPane{
 						
 			.append("<p>")
 			.append("<h2>Como seguir usuÃ¡rios</h2>")
-			.append("ApÃ³s pesquisar por usuarios, clique no usuÃ¡rio desejado " +
-					"e em seguida clique em \"sim\"")
+			.append("ApÃ³s abrir painel de informaçoes do usuário desejado " +
+					"clique em \"Follow\".")
 			.append("</p>")
-						
+			
+			.append("<br/>")
+			.append("<hr/>")
+
+			.append("<p>")
+			.append("<h2>Como visualizar painel de infomaçoes de usuários</h2>")
+			.append("O painel está disponível em três localidades:<br/>" +
+					"1) Painel pesquisar de usuários: Após pesquisar pelo usuário clique sobre ele, o painel será exibido em uma nova janela.<br/>" +
+					"2) Painel meus seguidores: Após pesquisar pelo usuário clique sobre ele, o painel será exibido em uma nova janela.<br/>" +
+					"3) Página inicial: Clica que botão direito no tweet do usuário desejado e na opção informações do usuário.<br/>")
+			.append("</p>")
+			
+			.append("<p>")
+			.append("<h2>Como deixar de seguir usuÃ¡rios</h2>")
+			.append("ApÃ³s abrir painel de informaçoes do usuário desejado " +
+					"clique em \"Unollow\".")
+			.append("</p>")
+			
+			.append("<p>")
+			.append("<h2>Como favoritar Tweets</h2>")
+			.append("Para favoritarr basta clicar com o botÃ£o direito " +
+					"do mouse no tweet desejado e selecionar a " +
+					"opÃ§Ã£o \"Favoritar\" .")
+			.append("</p>")	
+			
+			.append("<p>")
+			.append("<h2>Como enviar mensagem direta</h2>")
+			.append("ApÃ³s abrir painel de informaçoes do usuário desejado " +
+					"preencha o campo disponível e clique em enviar DM.")
+			.append("</p>")
+
+			.append("<p>")
+			.append("<h2>Como ver seus seguidores</h2>")
+			.append("Para ver seus seguidores vá no menu e na opção \"Meus seguidores\" ")
+			.append("</p>")
+
+			
 			.append("</div>");
 		
 		return builderAjuda.toString();
