@@ -21,7 +21,7 @@ public class PainelInfUsuario extends JPanel {
 
 	private Usuario usuario;
 	private JButton btnFollow, btnUnfollow, btnDM;
-	private JLabel textoInf, foto;
+	private JLabel textoInf, foto, outrasInf;
 	private JTextField campoDM;
 	private JPanel painelBtns, painelInformacoes, painelDM, painelListaTweets;
 	private ServicosTwitter servicosTwitter;
@@ -46,6 +46,7 @@ public class PainelInfUsuario extends JPanel {
 		this.painelDM.add(btnDM);
 		this.painelInformacoes.add(foto);
 		this.painelInformacoes.add(textoInf);
+		this.painelInformacoes.add(outrasInf);
 	}
 	
 
@@ -60,7 +61,7 @@ public class PainelInfUsuario extends JPanel {
 		painelListaTweets.setBackground(Color.white);
 		campoDM = new JTextField(10);
 		foto = new JLabel(usuario.getFoto());
-		btnDM = new JButton("Enviar mensagem");
+		btnDM = new JButton("Enviar DM");
 		btnDM.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -95,8 +96,11 @@ public class PainelInfUsuario extends JPanel {
 
 		});
 		this.add(btnFollow);
-		textoInf = new JLabel("<html><b>" + usuario.getNome()+" (Seguidores:"+" "+ usuario.getQuantidadeSeguindo()
-				+")"+ 
+		outrasInf = new JLabel("<html><b>"+ "Quantiade de amigos: " + usuario.getQuantidadeAmigos()+ "<br/>"
+				+ "Criado em: " + usuario.getCriadoEm().toLocaleString() + "<br/>" 
+				+"Seguidores :"+" "+ usuario.getQuantidadeSeguindo() 
+				+"</b><br/>" );
+		textoInf = new JLabel("<html><b>" + usuario.getNome()+ 
 				"</b><br/>" + "@" + usuario.getNick() + 
 				"<br/><i>" + usuario.getDescricao() + "</i>");
 	}
