@@ -78,7 +78,7 @@ public class PainelAjuda extends JScrollPane{
 			.append("Para retwittar basta clicar com o bot√£o direito " +
 					"do mouse no tweet desejado e selecionar a " +
 					"op√ß√£o \"Reply\"." +
-					"ApÔøΩs isso vocÔøΩ serÔøΩ redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
+					"Ap√≥s isso voc√™ ser√° redirecionado para o campo de tweetar onde deve ser escrita a resposta.")
 			.append("</p>")
 
 			.append("<p>")
@@ -99,7 +99,7 @@ public class PainelAjuda extends JScrollPane{
 						
 			.append("<p>")
 			.append("<h2>Como seguir usu√°rios</h2>")
-			.append("Ap√≥s abrir painel de informaÁoes do usu·rio desejado " +
+			.append("Ap√≥s abrir painel de informa√ß√µes do usu√°rio desejado " +
 					"clique em \"Follow\".")
 			.append("</p>")
 			
@@ -107,17 +107,17 @@ public class PainelAjuda extends JScrollPane{
 			.append("<hr/>")
 
 			.append("<p>")
-			.append("<h2>Como visualizar painel de infomaÁoes de usu·rios</h2>")
-			.append("O painel est· disponÌvel em trÍs localidades:<br/>" +
-					"1) Painel pesquisar de usu·rios: ApÛs pesquisar pelo usu·rio clique sobre ele, o painel ser· exibido em uma nova janela.<br/>" +
-					"2) Painel meus seguidores: ApÛs pesquisar pelo usu·rio clique sobre ele, o painel ser· exibido em uma nova janela.<br/>" +
-					"3) P·gina inicial: Clica que bot„o direito no tweet do usu·rio desejado e na opÁ„o informaÁıes do usu·rio.<br/>")
+			.append("<h2>Como visualizar painel de infoma√ß√µes de usu√°rios</h2>")
+			.append("O painel est√° dispon√≠vel em tr√™s localidades:<br/>" +
+					"1) Painel pesquisar de usu√°rios: Ap√≥s pesquisar pelo usu√°rio clique sobre ele, o painel ser√° exibido em uma nova janela.<br/>" +
+					"2) Painel meus seguidores: Ap√≥s pesquisar pelo usu√°rio clique sobre ele, o painel ser√° exibido em uma nova janela.<br/>" +
+					"3) P√°gina inicial: Clica que bot√£o direito no tweet do usu√°rio desejado e na op√ß√£o informa√ß√µes do usu√°rio.<br/>")
 			.append("</p>")
 			
 			.append("<p>")
 			.append("<h2>Como deixar de seguir usu√°rios</h2>")
-			.append("Ap√≥s abrir painel de informaÁoes do usu·rio desejado " +
-					"clique em \"Unollow\".")
+			.append("Ap√≥s abrir painel de informa√ß√µes do usu√°rio desejado " +
+					"clique em \"Unfollow\".")
 			.append("</p>")
 			
 			.append("<p>")
@@ -129,13 +129,13 @@ public class PainelAjuda extends JScrollPane{
 			
 			.append("<p>")
 			.append("<h2>Como enviar mensagem direta</h2>")
-			.append("Ap√≥s abrir painel de informaÁoes do usu·rio desejado " +
-					"preencha o campo disponÌvel e clique em enviar DM.")
+			.append("Ap√≥s abrir painel de informa√ß√µes do usu√°rio desejado " +
+					"preencha o campo dispon√≠vel e clique em enviar DM.")
 			.append("</p>")
 
 			.append("<p>")
 			.append("<h2>Como ver seus seguidores</h2>")
-			.append("Para ver seus seguidores v· no menu e na opÁ„o \"Meus seguidores\" ")
+			.append("Para ver seus seguidores v√° no menu e na op√ß√£o \"Meus seguidores\" ")
 			.append("</p>")
 
 			

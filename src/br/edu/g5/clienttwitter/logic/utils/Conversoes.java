@@ -42,6 +42,7 @@ public final class Conversoes {
 		autor.setCriadoEm(source.getCreatedAt());
 		autor.setQuantidadeSeguindo(source.getFollowersCount());
 		autor.setQuantidadeAmigos(source.getFriendsCount());
+		autor.setSeguindo(source.isFollowRequestSent());
 		return autor;
 	}
 	

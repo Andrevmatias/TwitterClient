@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -97,7 +98,7 @@ public class PainelInfUsuario extends JPanel {
 		});
 		this.add(btnFollow);
 		outrasInf = new JLabel("<html><b>"+ "Quantiade de amigos: " + usuario.getQuantidadeAmigos()+ "<br/>"
-				+ "Criado em: " + usuario.getCriadoEm().toLocaleString() + "<br/>" 
+				+ "Criado em: " + DateFormat.getDateInstance().format(usuario.getCriadoEm()) + "<br/>" 
 				+"Seguidores :"+" "+ usuario.getQuantidadeSeguindo() 
 				+"</b><br/>" );
 		textoInf = new JLabel("<html><b>" + usuario.getNome()+ 
@@ -113,7 +114,7 @@ public class PainelInfUsuario extends JPanel {
 					"Aviso!", 1);
 		} catch (TwitterException e1) {
 			JOptionPane.showMessageDialog(null, "Erro ao seguir " + usuario.getNome() +
-					"!" + " Verifique se voc� j� est� seguindo o usu�rio.", "Problema seguir"
+					"!" + " Verifique se você já está seguindo o usuário.", "Problema seguir"
 					, JOptionPane.WARNING_MESSAGE);
 			}
 	}
@@ -122,11 +123,11 @@ public class PainelInfUsuario extends JPanel {
 		try {
 			servicosTwitter.unfollow(this.usuario.getId());
 			usuario.setSeguindo(false);
-			JOptionPane.showMessageDialog(null, "Voc� parou de seguir " + "@" + usuario.getNick(), 
+			JOptionPane.showMessageDialog(null, "Você parou de seguir " + "@" + usuario.getNick(), 
 					"Aviso!", 1);
 		} catch (TwitterException e1) {
 			JOptionPane.showMessageDialog(null, "Erro ao parar de seguir " + usuario.getNome() +
-					"!" + " Verifique se voc� est� seguindo o usu�rio.", "Problema ao parar de seguir"
+					"!" + " Verifique se você está seguindo o usuário.", "Problema ao parar de seguir"
 					, JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -137,7 +138,7 @@ public class PainelInfUsuario extends JPanel {
 			JOptionPane.showMessageDialog(null,"Mensagem enviada com sucesso!", "Mensagem Direta" , JOptionPane.INFORMATION_MESSAGE);
 			campoDM.setText("");
 		} catch (TwitterException e) {
-			JOptionPane.showMessageDialog(null,"Erro ao enviar mensager!" + " Verifique se voc� est� seguindo o usu�rio.",
+			JOptionPane.showMessageDialog(null,"Erro ao enviar mensager!" + " Verifique se você está seguindo o usuário.",
 					"Problema ao enviar mensagem", JOptionPane.ERROR_MESSAGE);
 		}
 	}

@@ -99,7 +99,7 @@ public class PainelTweets extends JPanel {
 		});
         popupListaTweets.add(itemReply);
         
-        itemInfUsuario = new JMenuItem("Informa��es do usu�rio");
+        itemInfUsuario = new JMenuItem("Informações do usuário");
         itemInfUsuario.addActionListener( new ActionListener() {
 			
 			@Override

@@ -86,7 +86,6 @@ public class ServicosTwitter {
 
 	public void follow(long id) throws TwitterException {
 		twitterManager.createFriendship(id);
-			
 	}
 	
 	public void unfollow(long id) throws TwitterException{
